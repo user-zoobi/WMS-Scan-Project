@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/drawable/drop_down_icon.xml" value="0.1335" />
         <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/activity_add_warehouse.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/activity_business_location.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/activity_create_carton.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/activity_login.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/activity_menu.xml" value="0.20416666666666666" />
@@ -12,6 +13,7 @@
         <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/activity_update_product.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/activity_warehouse_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/smc/AndroidStudioProjects/ScanMate/app/src/main/res/layout/product_list_view.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

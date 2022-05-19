@@ -1,9 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.BusinessLocationActivity">
+    android:background="@color/royal_blue">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/userNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:fontFamily="@font/amiko"
+        android:text="Muhammad Zohaib Hassan"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/userDeptTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userNameTV"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:fontFamily="@font/amiko"
+        android:text="IT Department"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18ssp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_alignParentEnd="true"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/userDeptTV"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/white_rounded_bg">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="Business Locations"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/businessLocationSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/grey_stroke_rounded_bg"
+                android:entries="@array/places"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_20sdp"
+                android:spinnerMode="dropdown"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/warehouseSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/grey_stroke_rounded_bg"
+                android:entries="@array/warehouse"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_20sdp"
+                android:spinnerMode="dropdown"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/rackSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/grey_stroke_rounded_bg"
+                android:entries="@array/rackSpinner"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_20sdp"
+                android:spinnerMode="dropdown"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/shelfSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/grey_stroke_rounded_bg"
+                android:entries="@array/shelfSpinner"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_20sdp"
+                android:spinnerMode="dropdown"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/palletSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/grey_stroke_rounded_bg"
+                android:entries="@array/palletSpinner"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_20sdp"
+                android:spinnerMode="dropdown"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/warehouseRV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:visibility="gone"
+                tools:itemCount="4"
+                tools:listitem="@layout/warehouse_list_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/racksRV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:visibility="gone"
+                tools:itemCount="4"
+                tools:listitem="@layout/warehouse_list_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/shelfRV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:visibility="gone"
+                tools:itemCount="4"
+                tools:listitem="@layout/warehouse_list_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/palletsRV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:visibility="gone"
+                tools:itemCount="4"
+                tools:listitem="@layout/warehouse_list_view" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addBTN"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:backgroundTint="@color/royal_blue"
+        android:src="@drawable/add"
+        android:tint="@color/royal_blue" />
+
+</RelativeLayout>
