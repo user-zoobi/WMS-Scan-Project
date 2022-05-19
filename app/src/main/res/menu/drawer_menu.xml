@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/businessFragment"
+        android:title="@string/business"/>
+
+    <item
+        android:id="@+id/warehouseFragment"
+        android:title="@string/warehouse"/>
+
+    <item
+        android:id="@+id/racksFragment"
+        android:title="@string/racks"/>
+
+    <item
+        android:id="@+id/shelfsFragment"
+        android:title="@string/shelfs"/>
+
+    <item
+        android:id="@+id/palletsFragment"
+        android:title="@string/pallets"/>
+
+</menu>
