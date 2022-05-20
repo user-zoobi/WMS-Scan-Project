@@ -2,6 +2,7 @@ package com.example.scanmate.extensions
 
 import android.content.Intent
 import android.os.Build
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
@@ -17,6 +18,10 @@ fun <T : AppCompatActivity> AppCompatActivity.gotoActivity(targetActivityClass: 
 
 fun AppCompatActivity.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun View.click(it: (View) -> Unit) {
+    this.setOnClickListener(it)
 }
 
 fun <T : AppCompatActivity> Fragment.gotoActivityFromFragment(targetActivityClass: Class<T>) {

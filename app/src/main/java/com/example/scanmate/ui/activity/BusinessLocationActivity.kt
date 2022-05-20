@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.boschscan.extensions.gone
-import com.example.boschscan.extensions.visible
+import com.example.scanmate.R
 import com.example.scanmate.adapter.businessLocation.PalletsAdapter
 import com.example.scanmate.adapter.businessLocation.RacksAdapter
 import com.example.scanmate.adapter.businessLocation.ShelfAdapter
 import com.example.scanmate.adapter.businessLocation.WarehouseAdapter
 import com.example.scanmate.databinding.ActivityBusinessLocationBinding
-import com.example.scanmate.extensions.gotoActivity
+import com.example.scanmate.extensions.*
 import com.example.scanmate.ui.bottomsheets.BottomSheetFragment
 
 class BusinessLocationActivity : AppCompatActivity() {
@@ -27,6 +26,9 @@ class BusinessLocationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBusinessLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+        setTransparentStatusBarColor(R.color.transparent)
+        setupUi()
     }
 
     private fun setupUi(){
@@ -91,7 +93,7 @@ class BusinessLocationActivity : AppCompatActivity() {
     private fun initListeners(){
 
         val businessLocSpinner = binding.businessLocationSpinner
-        val warehouseSpinner = binding.warehouseSpinner
+        val wrhSpinner = binding.warehouseSpinner
         val rackSpinner = binding.rackSpinner
         val shelfSpinner = binding.shelfSpinner
 
@@ -137,20 +139,15 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         }
 
-        binding.addBTN.setOnClickListener {
-            gotoActivity(AddWarehouseActivity::class.java)
+        warehouseAdapter.onClick {
+//            gotoActivity(WarehouseDetailsActivity::class.java)
         }
 
-        warehouseAdapter.onClick {
-            gotoActivity(WarehouseDetailsActivity::class.java)
-        }
         warehouseAdapter.qrOnClick {
             bottomSheet = BottomSheetFragment()
             bottomSheet.show(supportFragmentManager,"")
         }
-    }
 
-    private fun initObserver(){
 
     }
 }

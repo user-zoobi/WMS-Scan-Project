@@ -8,6 +8,7 @@ import com.example.scanmate.databinding.ActivityAddWarehouseBinding
 import com.example.scanmate.databinding.ActivityLoginBinding
 import com.example.scanmate.databinding.ActivityMenuBinding
 import com.example.scanmate.extensions.gotoActivity
+import com.example.scanmate.extensions.setTransparentStatusBarColor
 
 class MenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuBinding
@@ -17,6 +18,8 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUi()
+        supportActionBar?.hide()
+        setTransparentStatusBarColor(R.color.transparent)
     }
 
     private fun setupUi() {

@@ -9,6 +9,7 @@ import android.widget.ImageView
 import com.example.scanmate.R
 import com.example.scanmate.databinding.ActivitySplashBinding
 import com.example.scanmate.extensions.gotoActivity
+import com.example.scanmate.extensions.setTransparentStatusBarColor
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
@@ -17,6 +18,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+        setTransparentStatusBarColor(R.color.transparent)
         handler()
     }
 
