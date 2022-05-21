@@ -77,13 +77,11 @@ class BusinessLocationActivity : AppCompatActivity() {
             {
                 binding.tvHeader.text = "Shelves"
                 screen = "S"
-                binding.rackSpinner.visible()
             }
             intent.extras?.getBoolean("palletKey") == true ->
             {
                 binding.tvHeader.text = "Pallets"
                 screen = "P"
-                binding.shelfSpinner.visible()
             }
 
         }
@@ -105,21 +103,17 @@ class BusinessLocationActivity : AppCompatActivity() {
             {
                 when (businessLocSpinner.selectedItem.toString())
                 {
-                    "Plant I", "Plant II",  "Plant III"->
-                    {
-                        when (screen)
-                        {
+                    "Plant I", "Plant II",  "Plant III"-> {
+                        when (screen) {
                             "W" -> binding.warehouseRV.visible()
                             "R" -> binding.warehouseSpinner.visible()
                         }
                     }
-                    "Select business location"->
-                    {
+                    "Select business location"-> {
                         binding.warehouseRV.gone()
                     }
                 }
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
@@ -128,18 +122,12 @@ class BusinessLocationActivity : AppCompatActivity() {
         {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                when{
-                    wrhSpinner.selectedItem.toString() == "warehouse I"->
-                    {
+                when(wrhSpinner.selectedItem.toString()){
+
+                    "warehouse I","warehouse II","warehouse III" -> {
                         binding.racksRV.visible()
                     }
-                    wrhSpinner.selectedItem.toString() == "warehouse II"->{
-                        binding.racksRV.visible()
-                    }
-                    wrhSpinner.selectedItem.toString() == "warehouse III"->{
-                        binding.racksRV.visible()
-                    }
-                    wrhSpinner.selectedItem.toString() == "Select warehouse"->{
+                    "Select warehouse"->{
                         binding.racksRV.gone()
                     }
                 }
