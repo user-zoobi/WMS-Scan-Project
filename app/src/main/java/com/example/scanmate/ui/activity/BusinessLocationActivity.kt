@@ -96,6 +96,7 @@ class BusinessLocationActivity : AppCompatActivity() {
         val wrhSpinner = binding.warehouseSpinner
         val rackSpinner = binding.rackSpinner
         val shelfSpinner = binding.shelfSpinner
+        val palletSpinner = binding.palletSpinner
 
         binding.businessLocationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
         {
@@ -117,6 +118,44 @@ class BusinessLocationActivity : AppCompatActivity() {
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+
+        binding.shelfSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
+        {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
+            {
+                when (shelfSpinner.selectedItem.toString()){
+                    "shelf I","shelf II","shelf III" ->{
+                        binding.palletsRV.visible()
+                    }
+                    "Select shelf" -> {
+                        binding.palletsRV.gone()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
+
+        palletSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
+        {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
+            {
+                when (palletSpinner.selectedItem.toString()){
+                    "pallet I","pallet II","pallet III" ->{
+                        binding.palletsRV.visible()
+                    }
+                    "Select pallet" -> {
+                        binding.palletsRV.gone()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
             }
         }
 
