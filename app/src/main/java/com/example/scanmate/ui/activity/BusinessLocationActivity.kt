@@ -103,10 +103,12 @@ class BusinessLocationActivity : AppCompatActivity() {
             {
                 when (businessLocSpinner.selectedItem.toString())
                 {
-                    "Plant I", "Plant II",  "Plant III"-> {
+                    "Plant I", "Plant II",  "Plant III" -> {
                         when (screen) {
                             "W" -> binding.warehouseRV.visible()
                             "R" -> binding.warehouseSpinner.visible()
+                            "S" -> binding.shelfSpinner.visible()
+                            "P" -> binding.palletSpinner.visible()
                         }
                     }
                     "Select business location"-> {
@@ -118,91 +120,6 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         }
 
-        binding.warehouseSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
-                when(wrhSpinner.selectedItem.toString()){
-
-                    "warehouse I","warehouse II","warehouse III" -> {
-                        binding.racksRV.visible()
-                    }
-                    "Select warehouse"->{
-                        binding.racksRV.gone()
-                    }
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
-
-        binding.rackSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
-                when{
-                    rackSpinner.selectedItem.toString() == "rack I ( R1 )"->{
-                        binding.shelfRV.visible()
-                    }
-                    rackSpinner.selectedItem.toString() == "rack II ( R2 )"->{
-                        binding.shelfRV.visible()
-                    }
-                    rackSpinner.selectedItem.toString() == "rack III ( R2 )"->{
-                        binding.shelfRV.visible()
-                    }
-                    rackSpinner.selectedItem.toString() == "Select racks"->{
-                        binding.shelfRV.gone()
-                    }
-                }
-
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
-
-        binding.shelfSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
-                when{
-                    shelfSpinner.selectedItem.toString() == "shelf I"->{
-                        binding.palletsRV.visible()
-                    }
-                    shelfSpinner.selectedItem.toString() == "shelf II"->{
-                        binding.palletsRV.visible()
-                    }
-                    shelfSpinner.selectedItem.toString() == "shelf III"->{
-                        binding.palletsRV.visible()
-                    }
-                }
-
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
-
-        binding.palletSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
-                when{
-                    binding.palletSpinner.selectedItem.toString() == "pallet I"->{
-                        binding.palletsRV.visible()
-                    }
-                    binding.palletSpinner.selectedItem.toString() == "pallet II"->{
-                        binding.palletsRV.visible()
-                    }
-                    binding.palletSpinner.selectedItem.toString() == "pallet III"->{
-                        binding.palletsRV.visible()
-                    }
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
 
         binding.addBTN.click{
             gotoActivity(WarehouseDetailsActivity::class.java)
