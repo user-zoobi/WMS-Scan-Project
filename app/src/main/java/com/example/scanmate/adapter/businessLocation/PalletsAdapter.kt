@@ -23,19 +23,19 @@ class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
         with(holder){
             when(position){
                 0->{
-                    binding.palletTV.text = "Shelf I"
+                    binding.palletTV.text = "Pallet I"
                 }
                 1->{
-                    binding.palletTV.text = "Shelf  II"
+                    binding.palletTV.text = "Pallet  II"
                 }
                 2->{
-                    binding.palletTV.text = "Shelf  III"
+                    binding.palletTV.text = "Pallet  III"
                 }
                 3->{
-                    binding.palletTV.text = "Shelf  IV"
+                    binding.palletTV.text = "Pallet  IV"
                 }
                 4->{
-                    binding.palletTV.text = "Shelf  V"
+                    binding.palletTV.text = "Pallet  V"
                 }
 
             }
@@ -50,7 +50,7 @@ class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
         }
     }
 
-    override fun getItemCount(): Int = 8
+    override fun getItemCount(): Int = 5
 
     private var palletItemClick: ((Int) -> Unit)? = null
     fun palletQRClick(listener: ((Int) -> Unit)) {
@@ -61,6 +61,5 @@ class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
     fun palletEditClick(listener: ((Int) -> Unit)) {
         palletEditItem = listener
     }
-
 
 }

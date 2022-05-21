@@ -20,7 +20,8 @@ class BusinessLocationActivity : AppCompatActivity() {
     private lateinit var racksAdapter: RacksAdapter
     private lateinit var shelfAdapter: ShelfAdapter
     private lateinit var palletAdapter: PalletsAdapter
-    private lateinit var bottomSheet: BottomSheetFragment
+
+    private var screen = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,23 +65,25 @@ class BusinessLocationActivity : AppCompatActivity() {
             intent.extras?.getBoolean("warehouseKey") == true ->
             {
                 binding.tvHeader.text = "Warehouse"
+                screen = "W"
 
             }
             intent.extras?.getBoolean("rackKey") == true ->
             {
                 binding.tvHeader.text = "Racks"
-                binding.businessLocationSpinner.visible()
-
+                screen = "R"
             }
             intent.extras?.getBoolean("shelfKey") == true ->
             {
                 binding.tvHeader.text = "Shelves"
-                binding.businessLocationSpinner.visible()
+                screen = "S"
+                binding.rackSpinner.visible()
             }
             intent.extras?.getBoolean("palletKey") == true ->
             {
                 binding.tvHeader.text = "Pallets"
-                binding.businessLocationSpinner.visible()
+                screen = "P"
+                binding.shelfSpinner.visible()
             }
 
         }
@@ -96,21 +99,24 @@ class BusinessLocationActivity : AppCompatActivity() {
         val rackSpinner = binding.rackSpinner
         val shelfSpinner = binding.shelfSpinner
 
-        binding.businessLocationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-
+        binding.businessLocationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
+        {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                if (businessLocSpinner.selectedItem.toString() == "Plant I")
+                when (businessLocSpinner.selectedItem.toString())
                 {
-                    binding.warehouseSpinner.visible()
-                }
-                else if (businessLocSpinner.selectedItem.toString() == "Select business location")
-                {
-                    binding.warehouseSpinner.gone()
-                    binding.rackSpinner.gone()
-                    binding.shelfSpinner.gone()
-                    binding.palletSpinner.gone()
-                    binding.palletsRV.gone()
+                    "Plant I", "Plant II",  "Plant III"->
+                    {
+                        when (screen)
+                        {
+                            "W" -> binding.warehouseRV.visible()
+                            "R" -> binding.warehouseSpinner.visible()
+                        }
+                    }
+                    "Select business location"->
+                    {
+                        binding.warehouseRV.gone()
+                    }
                 }
             }
 
@@ -122,16 +128,20 @@ class BusinessLocationActivity : AppCompatActivity() {
         {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                if (binding.warehouseSpinner.selectedItem.toString() == "warehouse I")
-                {
-                    binding.rackSpinner.visible()
-                }
-                else if (binding.warehouseSpinner.selectedItem.toString() == "Select warehouse")
-                {
-                    binding.rackSpinner.gone()
-                    binding.shelfSpinner.gone()
-                    binding.palletSpinner.gone()
-                    binding.palletsRV.gone()
+                when{
+                    wrhSpinner.selectedItem.toString() == "warehouse I"->
+                    {
+                        binding.racksRV.visible()
+                    }
+                    wrhSpinner.selectedItem.toString() == "warehouse II"->{
+                        binding.racksRV.visible()
+                    }
+                    wrhSpinner.selectedItem.toString() == "warehouse III"->{
+                        binding.racksRV.visible()
+                    }
+                    wrhSpinner.selectedItem.toString() == "Select warehouse"->{
+                        binding.racksRV.gone()
+                    }
                 }
             }
 
@@ -143,14 +153,19 @@ class BusinessLocationActivity : AppCompatActivity() {
         {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                if (binding.rackSpinner.selectedItem.toString() == "rack I ( R1 )" ){
-                    binding.shelfSpinner.visible()
-                }
-                else if (binding.rackSpinner.selectedItem.toString() == "Select racks")
-                {
-                    binding.shelfSpinner.gone()
-                    binding.palletSpinner.gone()
-                    binding.palletsRV.gone()
+                when{
+                    rackSpinner.selectedItem.toString() == "rack I ( R1 )"->{
+                        binding.shelfRV.visible()
+                    }
+                    rackSpinner.selectedItem.toString() == "rack II ( R2 )"->{
+                        binding.shelfRV.visible()
+                    }
+                    rackSpinner.selectedItem.toString() == "rack III ( R2 )"->{
+                        binding.shelfRV.visible()
+                    }
+                    rackSpinner.selectedItem.toString() == "Select racks"->{
+                        binding.shelfRV.gone()
+                    }
                 }
 
             }
@@ -162,14 +177,16 @@ class BusinessLocationActivity : AppCompatActivity() {
         binding.shelfSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                if (binding.shelfSpinner.selectedItem.toString() == "shelf I" )
-                {
-                    binding.palletSpinner.visible()
-                }
-                else if (binding.shelfSpinner.selectedItem.toString() == "Select shelf")
-                {
-                    binding.palletSpinner.gone()
-                    binding.palletsRV.gone()
+                when{
+                    shelfSpinner.selectedItem.toString() == "shelf I"->{
+                        binding.palletsRV.visible()
+                    }
+                    shelfSpinner.selectedItem.toString() == "shelf II"->{
+                        binding.palletsRV.visible()
+                    }
+                    shelfSpinner.selectedItem.toString() == "shelf III"->{
+                        binding.palletsRV.visible()
+                    }
                 }
 
             }
@@ -182,12 +199,16 @@ class BusinessLocationActivity : AppCompatActivity() {
         {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                if (binding.palletSpinner.selectedItem.toString() == "pallet I" )
-                {
-                    binding.palletsRV.visible()
-                }
-                else if (binding.palletSpinner.selectedItem.toString() == "Select pallet" ){
-                    binding.palletsRV.gone()
+                when{
+                    binding.palletSpinner.selectedItem.toString() == "pallet I"->{
+                        binding.palletsRV.visible()
+                    }
+                    binding.palletSpinner.selectedItem.toString() == "pallet II"->{
+                        binding.palletsRV.visible()
+                    }
+                    binding.palletSpinner.selectedItem.toString() == "pallet III"->{
+                        binding.palletsRV.visible()
+                    }
                 }
             }
 

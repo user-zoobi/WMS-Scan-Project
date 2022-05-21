@@ -8,6 +8,7 @@
     tools:context=".ui.activity.LoginActivity"
     android:background="@color/royal_blue">
 
+
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,26 +19,28 @@
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_toStartOf="@+id/splash_logo"
         android:fontFamily="@font/amiko"
-        android:text="@string/welcome_back"
+        android:text="Warehouse\nScanner App"
         android:textColor="@color/white"
         android:textSize="@dimen/_20ssp" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/splash_logo"
-        android:layout_width="@dimen/_250sdp"
-        android:layout_height="@dimen/_250sdp"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_300sdp"
         android:layout_above="@+id/loginCont"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:scaleType="fitEnd"
-        android:src="@drawable/password" />
+        android:src="@drawable/qr_mobile" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/loginCont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="-30dp"
+        android:layout_marginTop="-10dp"
         android:background="@drawable/top_rounded_white_bg"
         android:orientation="vertical">
 
@@ -45,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/amiko"
             android:text="@string/login"
             android:textColor="@color/black"
@@ -137,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_80sdp"
+            android:layout_marginBottom="@dimen/_70sdp"
             android:fontFamily="@font/amiko"
             android:text="@string/unlockWithBiometricsTitleKey"
             android:textColor="@color/royal_blue"
