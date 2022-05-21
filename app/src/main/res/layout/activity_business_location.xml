@@ -172,7 +172,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="end"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_70sdp"
         android:backgroundTint="@color/royal_blue"
         android:src="@drawable/add"
         android:tint="@color/royal_blue" />

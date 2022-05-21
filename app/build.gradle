@@ -97,4 +97,7 @@ dependencies {
     implementation 'com.google.dagger:hilt-android:2.40.5'
     kapt 'com.google.dagger:hilt-compiler:2.40.5'
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+
+    //google play camera
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
 }

@@ -148,6 +148,10 @@ class BusinessLocationActivity : AppCompatActivity() {
             bottomSheet.show(supportFragmentManager,"")
         }
 
+        binding.addBTN.click {
+            gotoActivity(WarehouseDetailsActivity::class.java)
+        }
+
 
     }
 }
