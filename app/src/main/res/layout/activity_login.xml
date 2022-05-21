@@ -111,7 +111,7 @@
                 android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
-                android:background="@drawable/blue_rounded_bg"
+                android:background="@drawable/ripple_blue_bg_button"
                 android:fontFamily="@font/amiko"
                 android:text="@string/login"
                 android:textAllCaps="false"

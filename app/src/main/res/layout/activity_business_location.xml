@@ -156,7 +156,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_90sdp"
+                android:visibility="visible"
                 tools:itemCount="4"
                 tools:listitem="@layout/warehouse_list_view" />
 

@@ -4,12 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/drawable/ripple_blue_bg_button.xml" value="0.12" />
+        <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/drawable/ripple_effect_layout.xml" value="0.12" />
+        <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/drawable/ripple_green_bg_button.xml" value="0.156" />
+        <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/drawable/ripple_yellow_bg_button.xml" value="0.156" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_add_warehouse.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_business_location.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_create_carton.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_scanner.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_scanner_camera.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_update_product.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/activity_warehouse_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/pallet_list_view.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/shelf_list_view.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/update_product_view.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/BI.IT-021/StudioProjects/Scan-Mate/app/src/main/res/layout/warehouse_list_view.xml" value="0.20416666666666666" />

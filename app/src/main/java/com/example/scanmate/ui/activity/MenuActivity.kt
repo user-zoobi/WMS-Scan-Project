@@ -30,15 +30,19 @@ class MenuActivity : AppCompatActivity() {
     private fun initListeners() {
         binding.warehouseIV.setOnClickListener {
             openActivity("warehouseKey")
+//            sendFalseAction("warehouseLimit")
         }
         binding.racksIV.setOnClickListener {
             openActivity("rackKey")
+//            sendFalseAction("warehouseLimit")
         }
         binding.shelfIV.setOnClickListener {
             openActivity("shelfKey")
+//            sendFalseAction("shelfLimit")
         }
         binding.palletsIV.setOnClickListener {
             openActivity("palletKey")
+//            sendFalseAction("palletLimit")
         }
         binding.createCartonBtn.setOnClickListener {
             gotoActivity(CreateCartonActivity::class.java)
@@ -51,5 +55,10 @@ class MenuActivity : AppCompatActivity() {
         val intent = Intent(this, BusinessLocationActivity::class.java)
         intent.putExtra(action, true)
         startActivity(intent)
+    }
+
+    private fun sendFalseAction(action:String){
+        val intent = Intent(this, BusinessLocationActivity::class.java)
+        intent.putExtra(action, false)
     }
 }

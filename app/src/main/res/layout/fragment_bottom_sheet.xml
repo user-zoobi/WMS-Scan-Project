@@ -25,6 +25,7 @@
         android:layout_below="@+id/qrMessage"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:src="@drawable/qr_code_black" />
 
 </RelativeLayout>

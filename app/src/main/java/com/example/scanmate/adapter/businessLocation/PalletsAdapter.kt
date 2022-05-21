@@ -39,7 +39,7 @@ class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
 
             }
             binding.editIV.setOnClickListener {
-                itemclick?.invoke(position)
+                palletItemClick?.invoke(position)
             }
 
         }
@@ -47,8 +47,8 @@ class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = 8
 
-    var itemclick: ((Int) -> Unit)? = null
-    fun onClick(listener: ((Int) -> Unit)) {
-        itemclick = listener
+    var palletItemClick: ((Int) -> Unit)? = null
+    fun palletOnClick(listener: ((Int) -> Unit)) {
+        palletItemClick = listener
     }
 }

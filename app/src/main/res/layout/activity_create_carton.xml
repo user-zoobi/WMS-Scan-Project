@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_60sdp"
-            android:background="@drawable/blue_rounded_bg"
+            android:background="@drawable/ripple_blue_bg_button"
             android:text="Save"
             android:textAllCaps="false"
             android:textColor="@color/white"
