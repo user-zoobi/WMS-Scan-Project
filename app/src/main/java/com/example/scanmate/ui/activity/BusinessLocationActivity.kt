@@ -70,6 +70,7 @@ class BusinessLocationActivity : AppCompatActivity() {
             {
                 binding.tvHeader.text = "Racks"
                 binding.businessLocationSpinner.visible()
+
             }
             intent.extras?.getBoolean("shelfKey") == true ->
             {
@@ -192,11 +193,6 @@ class BusinessLocationActivity : AppCompatActivity() {
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
-        }
-
-        warehouseAdapter.qrOnClick{
-            bottomSheet = BottomSheetFragment()
-            bottomSheet.show(supportFragmentManager,"")
         }
 
         binding.addBTN.click{

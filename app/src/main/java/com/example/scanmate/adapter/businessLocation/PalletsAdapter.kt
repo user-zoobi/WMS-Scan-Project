@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanmate.R
 import com.example.scanmate.databinding.PalletListViewBinding
+import com.example.scanmate.extensions.click
 
 class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
 
@@ -38,8 +39,12 @@ class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
                 }
 
             }
-            binding.editIV.setOnClickListener {
+            binding.showQRIV.setOnClickListener {
                 palletItemClick?.invoke(position)
+            }
+
+            binding.editIV.click {
+                palletEditItem?.invoke(position)
             }
 
         }
@@ -47,8 +52,15 @@ class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = 8
 
-    var palletItemClick: ((Int) -> Unit)? = null
-    fun palletOnClick(listener: ((Int) -> Unit)) {
+    private var palletItemClick: ((Int) -> Unit)? = null
+    fun palletQRClick(listener: ((Int) -> Unit)) {
         palletItemClick = listener
     }
+
+    private var palletEditItem: ((Int) -> Unit)? = null
+    fun palletEditClick(listener: ((Int) -> Unit)) {
+        palletEditItem = listener
+    }
+
+
 }
