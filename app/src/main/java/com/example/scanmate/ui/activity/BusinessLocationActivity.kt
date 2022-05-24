@@ -107,7 +107,7 @@ class BusinessLocationActivity : AppCompatActivity() {
                     "Plant I", "Plant II",  "Plant III" -> {
                         when (screen) {
                             "W" -> binding.warehouseRV.visible()
-                            "R" -> binding.warehouseSpinner.visible()
+                            "R" -> binding.rackSpinner.visible()
                             "S" -> binding.shelfSpinner.visible()
                             "P" -> binding.palletSpinner.visible()
                         }
@@ -118,6 +118,25 @@ class BusinessLocationActivity : AppCompatActivity() {
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+
+        binding.rackSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
+        {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
+            {
+                when (rackSpinner.selectedItem.toString()){
+                    "rack I ( R1 )","rack II ( R2 )","rack III ( R2 )" ->{
+                        binding.racksRV.visible()
+                    }
+                    "Select racks" -> {
+                        binding.shelfRV.gone()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
             }
         }
 
