@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.boschscan.extensions.putExtra
 
 fun <T : AppCompatActivity> AppCompatActivity.gotoActivity(targetActivityClass: Class<T>) {
@@ -23,6 +25,10 @@ fun AppCompatActivity.toast(message: String) {
 fun View.click(it: (View) -> Unit) {
     this.setOnClickListener(it)
 }
+
+fun <T : ViewModel> AppCompatActivity.obtainViewModel(viewModelClass: Class<T>) =
+    ViewModelProvider.NewInstanceFactory().create(viewModelClass)
+
 
 fun <T : AppCompatActivity> Fragment.gotoActivityFromFragment(targetActivityClass: Class<T>) {
     val intent = Intent(requireActivity(), targetActivityClass)

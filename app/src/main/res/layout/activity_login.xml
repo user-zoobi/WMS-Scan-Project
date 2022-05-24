@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.LoginActivity"
-    android:background="@color/royal_blue">
+    android:background="@color/royal_blue"
+    tools:context=".ui.activity.LoginActivity">
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -30,10 +29,20 @@
         android:layout_above="@+id/loginCont"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:scaleType="fitEnd"
         android:src="@drawable/qr_mobile" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressDialog"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:lottie_rawRes="@raw/loading_anim"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="gone"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/loginCont"
@@ -156,6 +165,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="@dimen/_50sdp"
-        android:textSize="@dimen/_5ssp"/>
+        android:textSize="@dimen/_5ssp" />
 
 </RelativeLayout>

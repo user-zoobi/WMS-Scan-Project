@@ -7,74 +7,74 @@ class LoginResponse {
 
     @SerializedName("UserNo")
     @Expose
-    private val userNo: Int? = null
+     val userNo: Int? = null
 
     @SerializedName("UserID")
     @Expose
-    private val userID: String? = null
+     val userID: String? = null
 
     @SerializedName("UserName")
     @Expose
-    private val userName: String? = null
+     val userName: String? = null
 
     @SerializedName("User_CategoryNo")
     @Expose
-    private val userCategoryNo: Int? = null
+     val userCategoryNo: Int? = null
 
     @SerializedName("User_CategoryName")
     @Expose
-    private val userCategoryName: String? = null
+     val userCategoryName: String? = null
 
     @SerializedName("MobileNo")
     @Expose
-    private val mobileNo: String? = null
+     val mobileNo: String? = null
 
     @SerializedName("ExtensionNo")
     @Expose
-    private val extensionNo: String? = null
+     val extensionNo: String? = null
 
     @SerializedName("EmailID")
     @Expose
-    private val emailID: String? = null
+     val emailID: String? = null
 
     @SerializedName("Active")
     @Expose
-    private val active: Boolean? = null
+     val active: Boolean? = null
 
     @SerializedName("EmpNo")
     @Expose
-    private val empNo: Int? = null
+     val empNo: Int? = null
 
     @SerializedName("DeptNo")
     @Expose
-    private val deptNo: Int? = null
+     val deptNo: Int? = null
 
     @SerializedName("DeptName")
     @Expose
-    private val deptName: String? = null
+     val deptName: String? = null
 
     @SerializedName("Super")
     @Expose
-    private val _super: Boolean? = null
+     val _super: Boolean? = null
 
     @SerializedName("Administrator")
     @Expose
-    private val administrator: Boolean? = null
+     val administrator: Boolean? = null
 
     @SerializedName("Guest")
     @Expose
-    private val guest: Boolean? = null
+     val guest: Boolean? = null
 
     @SerializedName("PwdExpired")
     @Expose
-    private val pwdExpired: Boolean? = null
+     val pwdExpired: Boolean? = null
 
     @SerializedName("Status")
     @Expose
-    private val status: Boolean? = null
+     val status: Boolean? = null
 
     @SerializedName("Error")
     @Expose
-    private val error: String? = null
+     val error: String? = null
 
 }

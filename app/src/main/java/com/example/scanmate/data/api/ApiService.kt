@@ -9,11 +9,11 @@ import retrofit2.http.Part
 
 interface ApiService {
 
-    @POST(userAuth)
     @Multipart
+    @POST(userAuth)
     suspend fun userAuthLogin(
-        @Part("UserID") UserID:RequestBody,
-        @Part("Pwd") Pwd:RequestBody
-    ): LoginResponse
+        @Part("UserID") UserID: RequestBody,
+        @Part("Pwd") Pwd: RequestBody
+    ): String
 
 }

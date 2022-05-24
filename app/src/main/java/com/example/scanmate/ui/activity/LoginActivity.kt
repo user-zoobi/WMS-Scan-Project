@@ -3,17 +3,22 @@ package com.example.scanmate.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.VideoView
+import androidx.lifecycle.Observer
 import com.example.scanmate.R
+import com.example.scanmate.data.callback.Status
 import com.example.scanmate.databinding.ActivityLoginBinding
 import com.example.scanmate.databinding.ActivitySplashBinding
-import com.example.scanmate.extensions.click
-import com.example.scanmate.extensions.gotoActivity
-import com.example.scanmate.extensions.setTransparentStatusBarColor
+import com.example.scanmate.extensions.*
 import com.example.scanmate.util.BiometricPromptUtils
+import com.example.scanmate.util.Constants.LogMessages.success
+import com.example.scanmate.util.Utils
+import com.example.scanmate.viewModel.MainViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +27,36 @@ class LoginActivity : AppCompatActivity() {
         initListeners()
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
+        viewModel = obtainViewModel(MainViewModel::class.java)
+
+        viewModel.data.observe(this, Observer {
+            it.let {
+                when (it.status) {
+
+                    Status.LOADING -> {
+                        binding.progressDialog.visible()
+                    }
+
+                    Status.SUCCESS -> {
+                        binding.progressDialog.gone()
+                        it.let {
+                            Log.i(success,"${it.data}")
+                        }
+                    }
+
+                    Status.ERROR -> {
+                        binding.progressDialog.gone()
+                    }
+
+                }
+            }
+        })
     }
 
-    private fun initListeners(){
+    private fun initListeners() {
 
         binding.loginBtn.click {
-            gotoActivity(MenuActivity::class.java)
+            validations()
         }
 
         binding.fingerPrintIV.click {
@@ -67,6 +96,21 @@ class LoginActivity : AppCompatActivity() {
             resources.getString(R.string.cancelKey),
             confirmationRequired = false
         )
+    }
+
+    private fun validations() {
+
+        val userID = binding.userIdET.text.toString()
+        val password = binding.passwordET.text.toString()
+
+        if (userID.isNullOrEmpty() or password.isNullOrEmpty()) {
+            toast("Field must be empty")
+        } else {
+            viewModel.loginUser(
+                Utils.getSimpleTextBody(userID),
+                Utils.getSimpleTextBody(password)
+            )
+        }
     }
 
 }
