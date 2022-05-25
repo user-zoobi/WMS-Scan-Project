@@ -53,9 +53,4 @@ class MenuActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun sendFalseAction(action:String){
-        val intent = Intent(this, BusinessLocationActivity::class.java)
-        intent.putExtra(action, false)
-    }
-
 }

@@ -1,26 +1,25 @@
 package com.example.scanmate.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import android.widget.VideoView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.scanmate.R
 import com.example.scanmate.data.callback.Status
 import com.example.scanmate.databinding.ActivityLoginBinding
-import com.example.scanmate.databinding.ActivitySplashBinding
 import com.example.scanmate.extensions.*
+import com.example.scanmate.ui.fragments.CustomDialogFragment
 import com.example.scanmate.util.BiometricPromptUtils
 import com.example.scanmate.util.Constants.LogMessages.success
-import com.example.scanmate.util.CustomDialog
+import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: MainViewModel
-    private lateinit var customDialog: CustomDialog
+    private lateinit var dialog: CustomProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         initListeners()
         supportActionBar?.hide()
+        dialog = CustomProgressDialog(this)
         setTransparentStatusBarColor(R.color.transparent)
         viewModel = obtainViewModel(MainViewModel::class.java)
 
@@ -36,15 +36,13 @@ class LoginActivity : AppCompatActivity() {
                 when (it.status) {
 
                     Status.LOADING -> {
-                        binding.progressDialog.visible()
+                        dialog.show()
                     }
 
                     Status.SUCCESS -> {
-
+                        dialog.dismiss()
                         binding.progressDialog.gone()
-
                         it.let {
-
                             Log.i(success, "${it.data?.get(0)?.emailID}")
 
                             if (it.data?.get(0)?.status == true) {
@@ -58,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
                                 }
 
                             } else {
-                                it.data?.get(0)?.error?.let { it1 -> showDialog(it1) }
+                                it.data?.get(0)?.error?.let { it1 -> toast(it1) }
                             }
 
                         }
@@ -74,14 +72,13 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    private fun showDialog(){
+    }
+
     private fun initListeners() {
 
         binding.loginBtn.click {
             validations()
-        }
-
-        binding.fingerPrintIV.click {
-            showBiometricPrompt()
         }
 
     }
