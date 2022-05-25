@@ -25,16 +25,6 @@ class SplashActivity : AppCompatActivity() {
 
     private fun handler(){
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-
-        val backgroundImage: ImageView = binding.boschIV
-        val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.side_slide)
-        backgroundImage.startAnimation(slideAnimation)
-
-
         Handler().postDelayed({
             gotoActivity(ScannerActivity::class.java)
             finish()

@@ -20,12 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScanMate">
         <activity
-            android:name=".util.LoadingDialog"
-            android:exported="false" />
-        <activity
-            android:name=".util.CustomDialog"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.WarehouseDetailsActivity"
             android:exported="false" />
         <activity
