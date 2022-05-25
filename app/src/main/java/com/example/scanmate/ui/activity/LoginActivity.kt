@@ -13,12 +13,14 @@ import com.example.scanmate.databinding.ActivitySplashBinding
 import com.example.scanmate.extensions.*
 import com.example.scanmate.util.BiometricPromptUtils
 import com.example.scanmate.util.Constants.LogMessages.success
+import com.example.scanmate.util.CustomDialog
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var customDialog: CustomDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +40,33 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     Status.SUCCESS -> {
+
                         binding.progressDialog.gone()
+
                         it.let {
-                            Log.i(success,"${it.data?.get(0)?.emailID}")
-                            gotoActivity(MenuActivity::class.java)
-                            it.data?.get(0)?.error?.let { it1 -> toast(it1) }
+
+                            Log.i(success, "${it.data?.get(0)?.emailID}")
+
+                            if (it.data?.get(0)?.status == true) {
+
+                                it.data[0].error?.let { it1 -> toast(it1) }
+
+                                if (it.data[0].active == true) {
+                                    gotoActivity(MenuActivity::class.java)
+                                } else {
+
+                                }
+
+                            } else {
+                                it.data?.get(0)?.error?.let { it1 -> showDialog(it1) }
+                            }
+
                         }
                     }
 
                     Status.ERROR -> {
                         binding.progressDialog.gone()
+                        toast("Something went wrong")
                     }
 
                 }

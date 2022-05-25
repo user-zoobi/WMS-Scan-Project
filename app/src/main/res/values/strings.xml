@@ -44,6 +44,7 @@
     <string name="nav_close">Close</string>
     <string name="addWarehouse">Add Warehouse</string>
     <string name="tap">Add Warehouse</string>
+    <string name="done">Done</string>
 
 
     // ------------------ spinner array text -------------------- //

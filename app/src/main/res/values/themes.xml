@@ -39,4 +39,14 @@
         <item name="android:letterSpacing">0.01</item>
     </style>
 
+    <style name="customDialog" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:maxHeight">@dimen/_200sdp</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
+    </style>
+
+
 </resources>
