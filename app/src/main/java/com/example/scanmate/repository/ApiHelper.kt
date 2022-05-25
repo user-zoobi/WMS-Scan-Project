@@ -9,5 +9,5 @@ interface ApiHelper {
     suspend fun userAuthLogin(
         UserID:RequestBody,
         Pwd:RequestBody
-    ):String = RetrofitClient.apiservice.userAuthLogin(UserID, Pwd)
+    ):List<LoginResponse> = RetrofitClient.apiservice.userAuthLogin(UserID, Pwd)
 }

@@ -19,8 +19,8 @@ import java.lang.Exception
 class MainViewModel : ViewModel() {
 
     private val repository = GeneralRepository()
-    private val _data = MutableLiveData<ApiResponseCallback<String>>()
-    val data: LiveData<ApiResponseCallback<String>>
+    private val _data = MutableLiveData<ApiResponseCallback<List<LoginResponse>>>()
+    val data: LiveData<ApiResponseCallback<List<LoginResponse>>>
     get() = _data
 
     fun loginUser(UserID: RequestBody, Pwd: RequestBody) {

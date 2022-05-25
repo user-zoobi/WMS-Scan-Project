@@ -40,7 +40,8 @@ class LoginActivity : AppCompatActivity() {
                     Status.SUCCESS -> {
                         binding.progressDialog.gone()
                         it.let {
-                            Log.i(success,"${it.data}")
+                            Log.i(success,"${it.data?.get(0)?.emailID}")
+                            gotoActivity(MenuActivity::class.java)
                         }
                     }
 

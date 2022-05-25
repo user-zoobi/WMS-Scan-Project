@@ -14,6 +14,6 @@ interface ApiService {
     suspend fun userAuthLogin(
         @Part("UserID") UserID: RequestBody,
         @Part("Pwd") Pwd: RequestBody
-    ): String
+    ): List<LoginResponse>
 
 }
