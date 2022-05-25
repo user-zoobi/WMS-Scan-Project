@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
                         it.let {
                             Log.i(success,"${it.data?.get(0)?.emailID}")
                             gotoActivity(MenuActivity::class.java)
+                            it.data?.get(0)?.error?.let { it1 -> toast(it1) }
                         }
                     }
 
