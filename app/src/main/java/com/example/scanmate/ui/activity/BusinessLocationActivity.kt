@@ -57,7 +57,7 @@ class BusinessLocationActivity : AppCompatActivity() {
                         warehouseAdapter.addItems(list)
                     }
                     Status.ERROR ->{
-
+                        dialog.dismiss()
                     }
                 }
             }
