@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanmate.R
 import com.example.scanmate.databinding.WarehouseListViewBinding
+import com.example.scanmate.storage.data.response.UserLocationResponse
 
-class WarehouseAdapter  : RecyclerView.Adapter<WarehouseAdapter.ViewHolder>() {
+class WarehouseAdapter(
+    private val list:ArrayList<UserLocationResponse>
+    )  : RecyclerView.Adapter<WarehouseAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = WarehouseListViewBinding.bind(view)
@@ -19,36 +22,13 @@ class WarehouseAdapter  : RecyclerView.Adapter<WarehouseAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val data = list[position]
         with(holder){
-            when(position){
-                0->{
-                    binding.wrhTV.text = "Warehouse I"
-                }
-                1->{
-                    binding.wrhTV.text = "Warehouse II"
-                }
-                2->{
-                    binding.wrhTV.text = "Warehouse III"
-                }
-                3->{
-                    binding.wrhTV.text = "Linz Warehouse I"
-                }
-                4->{
-                    binding.wrhTV.text = "Linz Warehouse II"
-                }
-
-            }
-            binding.editIV.setOnClickListener {
-                itemclick?.invoke(position)
-            }
-            binding.showQRIV.setOnClickListener {
-                qrclick?.invoke(position)
-            }
-
+           binding.wrhTV.text = data.busLocationName
         }
     }
 
-    override fun getItemCount(): Int = 8
+    override fun getItemCount(): Int = list.size
 
     var itemclick: ((Int) -> Unit)? = null
     fun onClick(listener: ((Int) -> Unit)) {
@@ -58,6 +38,11 @@ class WarehouseAdapter  : RecyclerView.Adapter<WarehouseAdapter.ViewHolder>() {
     var qrclick: ((Int) -> Unit)? = null
     fun qrOnClick(listener: ((Int) -> Unit)) {
         qrclick = listener
+    }
+
+    fun addItems(listItems:ArrayList<UserLocationResponse>){
+        list.addAll(listItems)
+        notifyDataSetChanged()
     }
 
 }

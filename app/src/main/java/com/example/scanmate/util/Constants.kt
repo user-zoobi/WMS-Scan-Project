@@ -7,6 +7,7 @@ object Constants {
 
     object EndPoint{
         const val userAuth = "GAuthAPI/Get_SM_User_Auth"
+        const val userLoc = "WHUserAPI/Get_SM_User_Location"
     }
 
     object Logs{

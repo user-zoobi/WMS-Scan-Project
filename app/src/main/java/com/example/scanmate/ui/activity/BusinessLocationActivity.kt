@@ -2,17 +2,24 @@ package com.example.scanmate.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.scanmate.R
 import com.example.scanmate.adapter.businessLocation.PalletsAdapter
 import com.example.scanmate.adapter.businessLocation.RacksAdapter
 import com.example.scanmate.adapter.businessLocation.ShelfAdapter
 import com.example.scanmate.adapter.businessLocation.WarehouseAdapter
+import com.example.scanmate.storage.data.callback.Status
 import com.example.scanmate.databinding.ActivityBusinessLocationBinding
 import com.example.scanmate.extensions.*
-import com.example.scanmate.ui.bottomsheets.BottomSheetFragment
+import com.example.scanmate.storage.data.response.UserLocationResponse
+import com.example.scanmate.util.CustomProgressDialog
+import com.example.scanmate.util.LoginPreferences
+import com.example.scanmate.util.Utils
+import com.example.scanmate.viewModel.MainViewModel
 
 class BusinessLocationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBusinessLocationBinding
@@ -20,6 +27,9 @@ class BusinessLocationActivity : AppCompatActivity() {
     private lateinit var racksAdapter: RacksAdapter
     private lateinit var shelfAdapter: ShelfAdapter
     private lateinit var palletAdapter: PalletsAdapter
+    private lateinit var viewModel: MainViewModel
+    private lateinit var dialog: CustomProgressDialog
+    private lateinit var list: ArrayList<UserLocationResponse>
 
     private var screen = ""
 
@@ -27,14 +37,43 @@ class BusinessLocationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBusinessLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
-        setTransparentStatusBarColor(R.color.transparent)
+        dialog = CustomProgressDialog(this)
         setupUi()
+        viewModel = obtainViewModel(MainViewModel::class.java)
+
+        val userNo = LoginPreferences.getInt(this,"userNo").toString()
+        viewModel.userLocation(Utils.getSimpleTextBody(userNo))
+
+        viewModel.userLoc.observe(this, Observer {
+            it.let {
+                when(it.status){
+                    Status.LOADING ->{
+                        dialog.show()
+                    }
+                    Status.SUCCESS ->{
+                        dialog.dismiss()
+                        it.data?.get(0)?.busLocationName?.let { it1 -> Log.i("userDataLocal", it1) }
+                        list = it.data as ArrayList<UserLocationResponse>
+                        warehouseAdapter.addItems(list)
+                    }
+                    Status.ERROR ->{
+
+                    }
+                }
+            }
+        })
+
+        Log.i("userDataLocal", LoginPreferences.getInt(this,"userNo").toString())
+
     }
 
     private fun setupUi(){
 
-        warehouseAdapter = WarehouseAdapter()
+        supportActionBar?.hide()
+        setTransparentStatusBarColor(R.color.transparent)
+
+        list = ArrayList()
+        warehouseAdapter = WarehouseAdapter(list)
         binding.warehouseRV.apply {
             adapter = warehouseAdapter
             layoutManager = LinearLayoutManager(this@BusinessLocationActivity)

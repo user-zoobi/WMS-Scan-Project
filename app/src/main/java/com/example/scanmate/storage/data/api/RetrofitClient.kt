@@ -1,4 +1,4 @@
-package com.example.scanmate.data.api
+package com.example.scanmate.storage.data.api
 
 import com.example.scanmate.util.Constants.BASE_URL
 import retrofit2.Retrofit

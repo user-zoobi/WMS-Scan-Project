@@ -1,4 +1,4 @@
-package com.example.scanmate.data.callback
+package com.example.scanmate.storage.data.callback
 
 data class ApiResponseCallback<out T>(val status : Status?, val data : T?, val message:String?) {
 

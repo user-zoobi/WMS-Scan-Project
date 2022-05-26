@@ -1,19 +1,24 @@
 package com.example.scanmate.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.scanmate.R
-import com.example.scanmate.data.callback.Status
+import com.example.scanmate.storage.data.callback.Status
 import com.example.scanmate.databinding.ActivityLoginBinding
 import com.example.scanmate.extensions.*
-import com.example.scanmate.ui.fragments.CustomDialogFragment
+import com.example.scanmate.storage.roomdb.db.UserDatabase
 import com.example.scanmate.util.BiometricPromptUtils
 import com.example.scanmate.util.Constants.LogMessages.success
 import com.example.scanmate.util.CustomProgressDialog
+import com.example.scanmate.util.LoginPreferences
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.launch
 
 
 class LoginActivity : AppCompatActivity() {
@@ -21,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private lateinit var dialog: CustomProgressDialog
 
+    @OptIn(InternalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -40,9 +46,11 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     Status.SUCCESS -> {
+
                         dialog.dismiss()
                         binding.progressDialog.gone()
                         it.let {
+
                             Log.i(success, "${it.data?.get(0)?.emailID}")
 
                             if (it.data?.get(0)?.status == true) {
@@ -51,9 +59,12 @@ class LoginActivity : AppCompatActivity() {
 
                                 if (it.data[0].active == true) {
                                     gotoActivity(MenuActivity::class.java)
-                                } else {
 
-                                }
+                                    it.data[0].userNo?.let { it1 ->
+                                        LoginPreferences.put(this,"userNo", it1)
+                                    }
+
+                                } else { }
 
                             } else {
                                 it.data?.get(0)?.error?.let { it1 -> toast(it1) }

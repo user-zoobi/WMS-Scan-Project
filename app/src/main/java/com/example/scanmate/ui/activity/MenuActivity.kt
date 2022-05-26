@@ -3,6 +3,7 @@ package com.example.scanmate.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.scanmate.R
 import com.example.scanmate.databinding.ActivityAddWarehouseBinding
 import com.example.scanmate.databinding.ActivityLoginBinding
@@ -20,7 +21,6 @@ class MenuActivity : AppCompatActivity() {
         setupUi()
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
-
     }
 
     private fun setupUi() {

@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.scanmate.data.callback.ApiResponseCallback
-import com.example.scanmate.data.response.LoginResponse
+import com.example.scanmate.storage.data.callback.ApiResponseCallback
+import com.example.scanmate.storage.data.response.LoginResponse
+import com.example.scanmate.storage.data.response.UserLocationResponse
 import com.example.scanmate.repository.GeneralRepository
-import com.example.scanmate.util.Constants.LogMessages.responseFailed
 import com.example.scanmate.util.Constants.LogMessages.responseFound
 import com.example.scanmate.util.Constants.Logs.vmError
 import com.example.scanmate.util.Constants.Logs.vmSuccess
@@ -35,6 +35,26 @@ class MainViewModel : ViewModel() {
                 Log.i(vmSuccess, responseFound)
             } catch (e: Exception) {
                 _data.value = ApiResponseCallback.error("${e.message}", null)
+                Log.i(vmError, "${e.message}")
+            }
+        }
+    }
+
+
+    private val _userLoc = MutableLiveData<ApiResponseCallback<List<UserLocationResponse>>>()
+    val userLoc : LiveData<ApiResponseCallback<List<UserLocationResponse>>>
+    get() = _userLoc
+
+    fun userLocation(UserNo:RequestBody){
+        _userLoc.value = ApiResponseCallback.loading()
+        viewModelScope.launch {
+            try {
+                _userLoc.value = ApiResponseCallback.success(
+                    repository.userLocation(UserNo)
+                )
+                Log.i(vmSuccess, responseFound)
+            }catch (e: Exception) {
+                _userLoc.value = ApiResponseCallback.error("${e.message}", null)
                 Log.i(vmError, "${e.message}")
             }
         }
