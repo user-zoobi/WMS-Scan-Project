@@ -7,6 +7,10 @@
     android:background="@color/royal_blue"
     tools:context=".ui.activity.LoginActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/drawer_menu"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"

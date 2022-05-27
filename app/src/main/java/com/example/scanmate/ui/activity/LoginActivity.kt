@@ -14,6 +14,7 @@ import com.example.scanmate.util.BiometricPromptUtils
 import com.example.scanmate.util.Constants.LogMessages.success
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LoginPreferences
+import com.example.scanmate.util.LoginPreferences.AppPreferences.isLogin
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 import kotlinx.coroutines.GlobalScope
@@ -26,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private lateinit var dialog: CustomProgressDialog
 
-    @OptIn(InternalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -52,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
                         it.let {
 
                             Log.i(success, "${it.data?.get(0)?.emailID}")
+                            Log.i(success, "${it.data?.get(0)?.userName}")
 
                             if (it.data?.get(0)?.status == true) {
 
@@ -61,30 +62,28 @@ class LoginActivity : AppCompatActivity() {
                                     gotoActivity(MenuActivity::class.java)
 
                                     it.data[0].userNo?.let { it1 ->
-                                        LoginPreferences.put(this,"userNo", it1)
+                                        LoginPreferences.put(this, "userNo", it1)
                                     }
+                                    LoginPreferences.put(this, isLogin, true)
+                                    LoginPreferences.put(this, isLogin, true)
 
                                 } else { }
 
                             } else {
-                                it.data?.get(0)?.error?.let { it1 -> toast(it1) }
-                            }
 
-                        }
-                    }
+                                it.data?.get(0)?.error?.let { it1 -> toast(it1) }
+
+                            } } }
 
                     Status.ERROR -> {
                         binding.progressDialog.gone()
                         toast("Something went wrong")
                     }
 
-                }
-            }
-        })
+                } } })
     }
 
-    private fun showDialog(){
-    }
+    private fun showDialog() {}
 
     private fun initListeners() {
 
@@ -99,25 +98,17 @@ class LoginActivity : AppCompatActivity() {
             this,
             object : BiometricPromptUtils.BiometricListener {
 
-                override fun onAuthenticationLockoutError() {
+                override fun onAuthenticationLockoutError() {}
 
-                }
-
-                override fun onAuthenticationPermanentLockoutError() {
-
-                }
+                override fun onAuthenticationPermanentLockoutError() {}
 
                 override fun onAuthenticationSuccess() {
                     gotoActivity(MenuActivity::class.java)
                 }
 
-                override fun onAuthenticationFailed() {
+                override fun onAuthenticationFailed() {}
 
-                }
-
-                override fun onAuthenticationError() {
-
-                }
+                override fun onAuthenticationError() {}
 
             })
         biometricPromptUtils.showBiometricPrompt(

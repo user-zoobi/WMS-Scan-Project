@@ -41,33 +41,37 @@ class BusinessLocationActivity : AppCompatActivity() {
         setupUi()
         viewModel = obtainViewModel(MainViewModel::class.java)
 
-        val userNo = LoginPreferences.getInt(this,"userNo").toString()
+        Log.i("userDataLocal", LoginPreferences.getInt(this, "userNo").toString())
+        initObserver()
+    }
+
+    private fun initObserver(){
+
+        val userNo = LoginPreferences.getInt(this, "userNo").toString()
         viewModel.userLocation(Utils.getSimpleTextBody(userNo))
 
         viewModel.userLoc.observe(this, Observer {
             it.let {
-                when(it.status){
-                    Status.LOADING ->{
+                when (it.status) {
+                    Status.LOADING -> {
                         dialog.show()
                     }
-                    Status.SUCCESS ->{
+                    Status.SUCCESS -> {
                         dialog.dismiss()
                         it.data?.get(0)?.busLocationName?.let { it1 -> Log.i("userDataLocal", it1) }
                         list = it.data as ArrayList<UserLocationResponse>
                         warehouseAdapter.addItems(list)
                     }
-                    Status.ERROR ->{
+                    Status.ERROR -> {
                         dialog.dismiss()
                     }
                 }
             }
         })
 
-        Log.i("userDataLocal", LoginPreferences.getInt(this,"userNo").toString())
-
     }
 
-    private fun setupUi(){
+    private fun setupUi() {
 
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
@@ -99,26 +103,21 @@ class BusinessLocationActivity : AppCompatActivity() {
 
         //visibility intent values
 
-        when
-        {
-            intent.extras?.getBoolean("warehouseKey") == true ->
-            {
+        when {
+            intent.extras?.getBoolean("warehouseKey") == true -> {
                 binding.tvHeader.text = "Warehouse"
                 screen = "W"
 
             }
-            intent.extras?.getBoolean("rackKey") == true ->
-            {
+            intent.extras?.getBoolean("rackKey") == true -> {
                 binding.tvHeader.text = "Racks"
                 screen = "R"
             }
-            intent.extras?.getBoolean("shelfKey") == true ->
-            {
+            intent.extras?.getBoolean("shelfKey") == true -> {
                 binding.tvHeader.text = "Shelves"
                 screen = "S"
             }
-            intent.extras?.getBoolean("palletKey") == true ->
-            {
+            intent.extras?.getBoolean("palletKey") == true -> {
                 binding.tvHeader.text = "Pallets"
                 screen = "P"
             }
@@ -129,7 +128,7 @@ class BusinessLocationActivity : AppCompatActivity() {
 
     }
 
-    private fun initListeners(){
+    private fun initListeners() {
 
         val businessLocSpinner = binding.businessLocationSpinner
         val wrhSpinner = binding.warehouseSpinner
@@ -137,35 +136,42 @@ class BusinessLocationActivity : AppCompatActivity() {
         val shelfSpinner = binding.shelfSpinner
         val palletSpinner = binding.palletSpinner
 
-        binding.businessLocationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
-                when (businessLocSpinner.selectedItem.toString())
-                {
-                    "Plant I", "Plant II",  "Plant III" -> {
-                        when (screen) {
-                            "W" -> binding.warehouseRV.visible()
-                            "R" -> binding.rackSpinner.visible()
-                            "S" -> binding.shelfSpinner.visible()
-                            "P" -> binding.palletSpinner.visible()
+        binding.businessLocationSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterView: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    when (businessLocSpinner.selectedItem.toString()) {
+                        "Plant I", "Plant II", "Plant III" -> {
+                            when (screen) {
+                                "W" -> binding.warehouseRV.visible()
+                                "R" -> binding.rackSpinner.visible()
+                                "S" -> binding.shelfSpinner.visible()
+                                "P" -> binding.palletSpinner.visible()
+                            }
+                        }
+                        "Select business location" -> {
+                            binding.warehouseRV.gone()
                         }
                     }
-                    "Select business location"-> {
-                        binding.warehouseRV.gone()
-                    }
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
 
-        binding.rackSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
-                when (rackSpinner.selectedItem.toString()){
-                    "rack I ( R1 )","rack II ( R2 )","rack III ( R2 )" ->{
+        binding.rackSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (rackSpinner.selectedItem.toString()) {
+                    "rack I ( R1 )", "rack II ( R2 )", "rack III ( R2 )" -> {
                         binding.racksRV.visible()
                     }
                     "Select racks" -> {
@@ -179,12 +185,15 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         }
 
-        binding.shelfSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
-                when (shelfSpinner.selectedItem.toString()){
-                    "shelf I","shelf II","shelf III" ->{
+        binding.shelfSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (shelfSpinner.selectedItem.toString()) {
+                    "shelf I", "shelf II", "shelf III" -> {
                         binding.palletsRV.visible()
                     }
                     "Select shelf" -> {
@@ -198,12 +207,15 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         }
 
-        palletSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
-                when (palletSpinner.selectedItem.toString()){
-                    "pallet I","pallet II","pallet III" ->{
+        palletSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (palletSpinner.selectedItem.toString()) {
+                    "pallet I", "pallet II", "pallet III" -> {
                         binding.palletsRV.visible()
                     }
                     "Select pallet" -> {
@@ -217,8 +229,7 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         }
 
-
-        binding.addBTN.click{
+        binding.addBTN.click {
             gotoActivity(WarehouseDetailsActivity::class.java)
         }
 

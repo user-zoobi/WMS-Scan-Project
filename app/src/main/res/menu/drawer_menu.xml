@@ -3,22 +3,6 @@
 
     <item
         android:id="@+id/businessFragment"
-        android:title="@string/business"/>
-
-    <item
-        android:id="@+id/warehouseFragment"
-        android:title="@string/warehouse"/>
-
-    <item
-        android:id="@+id/racksFragment"
-        android:title="@string/racks"/>
-
-    <item
-        android:id="@+id/shelfsFragment"
-        android:title="@string/shelfs"/>
-
-    <item
-        android:id="@+id/palletsFragment"
-        android:title="@string/pallets"/>
+        android:title="Logout"/>
 
 </menu>

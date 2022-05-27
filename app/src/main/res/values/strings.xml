@@ -37,6 +37,7 @@
     <string name="cancelKey">Cancel</string>
     <string name="business">Business</string>
     <string name="warehouse">Warehouse</string>
+    <string name="addCarton">Place carton</string>
     <string name="racks">Racks</string>
     <string name="shelfs">Shelfs</string>
     <string name="pallets">Pallets</string>

@@ -40,7 +40,7 @@ class MenuActivity : AppCompatActivity() {
         binding.palletsIV.setOnClickListener {
             openActivity("palletKey")
         }
-        binding.createCartonBtn.setOnClickListener {
+        binding.placeCartonIV.setOnClickListener {
             gotoActivity(CreateCartonActivity::class.java)
         }
 
