@@ -1,7 +1,7 @@
 package com.example.scanmate.util
 
 import android.content.Context
-import com.example.scanmate.util.LoginPreferences.AppPreferences.PREF
+import com.example.scanmate.util.LoginPreferences.AppLoginPreferences.PREF
 
 object LoginPreferences {
 
@@ -38,12 +38,23 @@ object LoginPreferences {
         return pref.getInt(key, 0)
     }
 
-    object AppPreferences {
+
+
+
+    object AppLoginPreferences {
+
         const val PREF = "Pref"
-        const val userNo = "Pref"
+        const val userNo = "userNo"
         const val user_CategoryNo = "user_CategoryNo"
         const val mobileNo = "mobileNo"
         const val extensionNo = "extensionNo"
         const val isLogin = "isLogin"
+
+    }
+
+    object AppConstants{
+
+        const val orgBusLocNo = "OrgBusLocNo"
+
     }
 }

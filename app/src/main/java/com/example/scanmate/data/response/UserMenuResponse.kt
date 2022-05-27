@@ -1,17 +1,16 @@
-package com.example.scanmate.storage.data.response
-
+package com.example.scanmate.data.response
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class UserLocationResponse {
-
-    @SerializedName("OrgBusLocNo")
+class UserMenuResponse {
+    
+    @SerializedName("MenuNo")
     @Expose
-     val orgBusLocNo: Int? = null
+     val menuNo: Int? = null
 
-    @SerializedName("BusLocationName")
+    @SerializedName("Menu")
     @Expose
-     val busLocationName: String? = null
+     val menu: String? = null
 
     @SerializedName("Status")
     @Expose
@@ -20,5 +19,5 @@ class UserLocationResponse {
     @SerializedName("Error")
     @Expose
      val error: String? = null
-
+    
 }

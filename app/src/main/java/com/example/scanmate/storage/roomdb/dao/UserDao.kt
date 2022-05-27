@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.scanmate.storage.data.response.LoginResponse
+import com.example.scanmate.data.response.LoginResponse
 
 @Dao
 interface UserDao{

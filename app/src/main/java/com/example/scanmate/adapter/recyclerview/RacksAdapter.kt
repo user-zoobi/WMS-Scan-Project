@@ -1,4 +1,4 @@
-package com.example.scanmate.adapter.businessLocation
+package com.example.scanmate.adapter.recyclerview
 
 import android.view.LayoutInflater
 import android.view.View

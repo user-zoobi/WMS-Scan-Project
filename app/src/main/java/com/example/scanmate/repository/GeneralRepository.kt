@@ -1,8 +1,9 @@
 package com.example.scanmate.repository
 
-import com.example.scanmate.storage.data.api.RetrofitClient
-import com.example.scanmate.storage.data.response.LoginResponse
-import com.example.scanmate.storage.data.response.UserLocationResponse
+import com.example.scanmate.data.api.RetrofitClient
+import com.example.scanmate.data.response.LoginResponse
+import com.example.scanmate.data.response.UserLocationResponse
+import com.example.scanmate.data.response.UserMenuResponse
 import okhttp3.RequestBody
 
 class GeneralRepository :ApiHelper{
@@ -15,5 +16,12 @@ class GeneralRepository :ApiHelper{
         UserNo: RequestBody
     ): List<UserLocationResponse> {
         return RetrofitClient.apiservice.userLocation(UserNo)
+    }
+
+    override suspend fun userMenu(
+        UserNo: RequestBody,
+        LocationNo: RequestBody
+    ): List<UserMenuResponse> {
+        return RetrofitClient.apiservice.userMenu(UserNo, LocationNo)
     }
 }

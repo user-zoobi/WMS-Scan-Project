@@ -47,9 +47,6 @@
     <string name="tap">Add Warehouse</string>
     <string name="done">Done</string>
 
-
-    // ------------------ spinner array text -------------------- //
-
     <string-array name="places">
         <item>Select business location</item>
         <item>Plant I</item>
@@ -84,8 +81,5 @@
         <item>pallet II</item>
         <item>pallet III</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>

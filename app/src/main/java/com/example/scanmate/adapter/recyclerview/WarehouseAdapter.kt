@@ -1,4 +1,4 @@
-package com.example.scanmate.adapter.businessLocation
+package com.example.scanmate.adapter.recyclerview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanmate.R
 import com.example.scanmate.databinding.WarehouseListViewBinding
-import com.example.scanmate.storage.data.response.UserLocationResponse
+import com.example.scanmate.data.response.UserLocationResponse
 
 class WarehouseAdapter(
     private val list:ArrayList<UserLocationResponse>
@@ -29,16 +29,6 @@ class WarehouseAdapter(
     }
 
     override fun getItemCount(): Int = list.size
-
-    var itemclick: ((Int) -> Unit)? = null
-    fun onClick(listener: ((Int) -> Unit)) {
-        itemclick = listener
-    }
-
-    var qrclick: ((Int) -> Unit)? = null
-    fun qrOnClick(listener: ((Int) -> Unit)) {
-        qrclick = listener
-    }
 
     fun addItems(listItems:ArrayList<UserLocationResponse>){
         list.addAll(listItems)

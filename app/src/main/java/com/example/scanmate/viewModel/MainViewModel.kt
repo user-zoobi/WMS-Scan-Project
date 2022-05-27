@@ -5,9 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.scanmate.storage.data.callback.ApiResponseCallback
-import com.example.scanmate.storage.data.response.LoginResponse
-import com.example.scanmate.storage.data.response.UserLocationResponse
+import com.example.scanmate.data.callback.ApiResponseCallback
+import com.example.scanmate.data.response.LoginResponse
+import com.example.scanmate.data.response.UserLocationResponse
+import com.example.scanmate.data.response.UserMenuResponse
 import com.example.scanmate.repository.GeneralRepository
 import com.example.scanmate.util.Constants.LogMessages.responseFound
 import com.example.scanmate.util.Constants.Logs.vmError
@@ -58,6 +59,27 @@ class MainViewModel : ViewModel() {
                 Log.i(vmError, "${e.message}")
             }
         }
+    }
+
+
+    private val _userMenu = MutableLiveData<ApiResponseCallback<List<UserMenuResponse>>>()
+    val userMenu : LiveData<ApiResponseCallback<List<UserMenuResponse>>>
+    get() = _userMenu
+
+    fun userMenu(UserNo: RequestBody, LocationNo: RequestBody){
+        _userMenu.value = ApiResponseCallback.loading()
+        viewModelScope.launch {
+            try {
+                _userMenu.value = ApiResponseCallback.success(
+                    repository.userMenu(UserNo, LocationNo)
+                )
+                Log.i(vmSuccess, responseFound)
+            }catch (e: Exception){
+                _userMenu.value = ApiResponseCallback.error("${e.message}", null)
+                Log.i(vmError, "${e.message}")
+            }
+        }
+
     }
 
 }

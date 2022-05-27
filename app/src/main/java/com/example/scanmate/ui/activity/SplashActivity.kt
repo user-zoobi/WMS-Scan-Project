@@ -11,7 +11,7 @@ import com.example.scanmate.databinding.ActivitySplashBinding
 import com.example.scanmate.extensions.gotoActivity
 import com.example.scanmate.extensions.setTransparentStatusBarColor
 import com.example.scanmate.util.LoginPreferences
-import com.example.scanmate.util.LoginPreferences.AppPreferences.isLogin
+import com.example.scanmate.util.LoginPreferences.AppLoginPreferences.isLogin
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
@@ -28,11 +28,9 @@ class SplashActivity : AppCompatActivity() {
     private fun handler(){
 
         Handler().postDelayed({
-
-            if (LoginPreferences.getBoolean(this,isLogin)){
+            if (LoginPreferences.getBoolean(this, isLogin)){
                 gotoActivity(MenuActivity::class.java)
                 finish()
-
             }else{
                 gotoActivity(ScannerActivity::class.java)
                 finish()

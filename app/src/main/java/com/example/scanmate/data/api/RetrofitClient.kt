@@ -1,6 +1,6 @@
-package com.example.scanmate.storage.data.api
+package com.example.scanmate.data.api
 
-import com.example.scanmate.util.Constants.BASE_URL
+import com.example.scanmate.data.routes.Routes.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

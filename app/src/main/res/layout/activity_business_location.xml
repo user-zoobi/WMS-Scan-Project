@@ -70,9 +70,9 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/grey_stroke_rounded_bg"
-                android:entries="@array/places"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_20sdp"
+                android:entries="@array/places"
                 android:spinnerMode="dropdown"
                 android:visibility="visible" />
 
@@ -82,7 +82,6 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/grey_stroke_rounded_bg"
-                android:entries="@array/warehouse"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_20sdp"
                 android:spinnerMode="dropdown"
@@ -94,7 +93,6 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/grey_stroke_rounded_bg"
-                android:entries="@array/rackSpinner"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_20sdp"
                 android:spinnerMode="dropdown"
@@ -106,7 +104,6 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/grey_stroke_rounded_bg"
-                android:entries="@array/shelfSpinner"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_20sdp"
                 android:spinnerMode="dropdown"
@@ -118,7 +115,6 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/grey_stroke_rounded_bg"
-                android:entries="@array/palletSpinner"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_20sdp"
                 android:spinnerMode="dropdown"
@@ -129,8 +125,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:visibility="gone"
                 android:layout_marginBottom="@dimen/_20sdp"
+                android:visibility="gone"
                 tools:itemCount="4"
                 tools:listitem="@layout/warehouse_list_view" />
 

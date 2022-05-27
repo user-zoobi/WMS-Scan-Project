@@ -1,26 +1,21 @@
 package com.example.scanmate.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.scanmate.R
-import com.example.scanmate.storage.data.callback.Status
+import com.example.scanmate.data.callback.Status
 import com.example.scanmate.databinding.ActivityLoginBinding
 import com.example.scanmate.extensions.*
-import com.example.scanmate.storage.roomdb.db.UserDatabase
 import com.example.scanmate.util.BiometricPromptUtils
 import com.example.scanmate.util.Constants.LogMessages.success
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LoginPreferences
-import com.example.scanmate.util.LoginPreferences.AppPreferences.isLogin
+import com.example.scanmate.util.LoginPreferences.AppLoginPreferences.isLogin
+import com.example.scanmate.util.LoginPreferences.AppLoginPreferences.userNo
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.launch
-
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -31,10 +26,24 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initListeners()
+        setupUi()
+        initObservers()
+
+    }
+
+
+    private fun setupUi(){
+
         supportActionBar?.hide()
         dialog = CustomProgressDialog(this)
         setTransparentStatusBarColor(R.color.transparent)
+        initListeners()
+
+    }
+
+
+    private fun initObservers(){
+
         viewModel = obtainViewModel(MainViewModel::class.java)
 
         viewModel.data.observe(this, Observer {
@@ -44,7 +53,6 @@ class LoginActivity : AppCompatActivity() {
                     Status.LOADING -> {
                         dialog.show()
                     }
-
                     Status.SUCCESS -> {
 
                         dialog.dismiss()
@@ -52,7 +60,6 @@ class LoginActivity : AppCompatActivity() {
                         it.let {
 
                             Log.i(success, "${it.data?.get(0)?.emailID}")
-                            Log.i(success, "${it.data?.get(0)?.userName}")
 
                             if (it.data?.get(0)?.status == true) {
 
@@ -62,28 +69,25 @@ class LoginActivity : AppCompatActivity() {
                                     gotoActivity(MenuActivity::class.java)
 
                                     it.data[0].userNo?.let { it1 ->
-                                        LoginPreferences.put(this, "userNo", it1)
+                                        LoginPreferences.put(this,userNo, it1)
                                     }
-                                    LoginPreferences.put(this, isLogin, true)
-                                    LoginPreferences.put(this, isLogin, true)
+                                    LoginPreferences.put(this,isLogin,true)
 
                                 } else { }
 
                             } else {
-
                                 it.data?.get(0)?.error?.let { it1 -> toast(it1) }
-
-                            } } }
-
+                            }
+                        }
+                    }
                     Status.ERROR -> {
                         binding.progressDialog.gone()
                         toast("Something went wrong")
                     }
-
-                } } })
+                }
+            }
+        })
     }
-
-    private fun showDialog() {}
 
     private fun initListeners() {
 
@@ -109,8 +113,8 @@ class LoginActivity : AppCompatActivity() {
                 override fun onAuthenticationFailed() {}
 
                 override fun onAuthenticationError() {}
-
             })
+
         biometricPromptUtils.showBiometricPrompt(
             resources.getString(R.string.confirmYourBiometricsKey),
             resources.getString(R.string.cancelKey),
