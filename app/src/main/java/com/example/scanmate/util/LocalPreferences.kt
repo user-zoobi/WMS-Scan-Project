@@ -1,9 +1,9 @@
 package com.example.scanmate.util
 
 import android.content.Context
-import com.example.scanmate.util.LoginPreferences.AppLoginPreferences.PREF
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.PREF
 
-object LoginPreferences {
+object LocalPreferences {
 
     fun put(context: Context, key: String, value: String) {
         val pref = context.getSharedPreferences(PREF, Context.MODE_PRIVATE)

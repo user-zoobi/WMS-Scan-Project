@@ -9,6 +9,8 @@ object Routes {
         const val userAuth = "GAuthAPI/Get_SM_User_Auth"
         const val userLoc = "WHUserAPI/Get_SM_User_Location"
         const val userMenu = "WHUserAPI/Get_SM_UserMenu"
+        const val addUpdateWarehouse = "WHAPI/DMl_WareHouse"
+        const val getWarehouse = "WHAPI/Get_WareHouse"
     }
 
 }

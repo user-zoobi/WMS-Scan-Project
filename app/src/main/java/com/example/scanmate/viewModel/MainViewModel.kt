@@ -6,9 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.scanmate.data.callback.ApiResponseCallback
-import com.example.scanmate.data.response.LoginResponse
-import com.example.scanmate.data.response.UserLocationResponse
-import com.example.scanmate.data.response.UserMenuResponse
+import com.example.scanmate.data.response.*
 import com.example.scanmate.repository.GeneralRepository
 import com.example.scanmate.util.Constants.LogMessages.responseFound
 import com.example.scanmate.util.Constants.Logs.vmError
@@ -79,7 +77,48 @@ class MainViewModel : ViewModel() {
                 Log.i(vmError, "${e.message}")
             }
         }
+    }
 
+
+    private val _getWarehouse = MutableLiveData<ApiResponseCallback<List<GetWarehouseResponse>>>()
+    val getWarehouse : LiveData<ApiResponseCallback<List<GetWarehouseResponse>>>
+    get() = _getWarehouse
+    fun getWarehouse(
+        WH_Name: String, LocationNo: String
+    ){
+        _getWarehouse.value = ApiResponseCallback.loading()
+        viewModelScope.launch {
+            try {
+                _getWarehouse.value = ApiResponseCallback.success(repository.getWarehouse(
+                    WH_Name, LocationNo
+                ))
+            }catch (e:Exception){
+                _getWarehouse.value = ApiResponseCallback.error("${e.message}",null)
+            }
+        }
+    }
+
+
+    private val _addUpdateWarehouse = MutableLiveData<ApiResponseCallback<AddUpdateWarehouseResponse>>()
+    val addUpdateWarehouse : LiveData<ApiResponseCallback<AddUpdateWarehouseResponse>>
+    get() = _addUpdateWarehouse
+    fun addUpdateWarehouse(
+        WH_No: String, WH_Name: String, WH_Code: String,
+        LocationNo: String, DMLUserNo: String, DMLPCName: String
+    ){
+        viewModelScope.launch {
+            _addUpdateWarehouse.value = ApiResponseCallback.loading()
+            try {
+                _addUpdateWarehouse.value = ApiResponseCallback.success(
+                    repository.addUpdateWarehouse(
+                        WH_No, WH_Name, WH_Code, LocationNo, DMLUserNo, DMLPCName
+                    ))
+            }catch (e:Exception){
+                _addUpdateWarehouse.value = ApiResponseCallback.error(
+                    "${e.message}",null
+                )
+            }
+        }
     }
 
 }

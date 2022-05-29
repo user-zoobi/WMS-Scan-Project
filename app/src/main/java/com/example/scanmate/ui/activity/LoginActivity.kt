@@ -11,9 +11,9 @@ import com.example.scanmate.extensions.*
 import com.example.scanmate.util.BiometricPromptUtils
 import com.example.scanmate.util.Constants.LogMessages.success
 import com.example.scanmate.util.CustomProgressDialog
-import com.example.scanmate.util.LoginPreferences
-import com.example.scanmate.util.LoginPreferences.AppLoginPreferences.isLogin
-import com.example.scanmate.util.LoginPreferences.AppLoginPreferences.userNo
+import com.example.scanmate.util.LocalPreferences
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.isLogin
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 
@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = obtainViewModel(MainViewModel::class.java)
         setupUi()
         initObservers()
 
@@ -44,8 +45,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initObservers(){
 
-        viewModel = obtainViewModel(MainViewModel::class.java)
-
         viewModel.data.observe(this, Observer {
             it.let {
                 when (it.status) {
@@ -54,27 +53,30 @@ class LoginActivity : AppCompatActivity() {
                         dialog.show()
                     }
                     Status.SUCCESS -> {
-
                         dialog.dismiss()
                         binding.progressDialog.gone()
+
                         it.let {
 
                             Log.i(success, "${it.data?.get(0)?.emailID}")
 
-                            if (it.data?.get(0)?.status == true) {
+                            // check status of user
 
+                            if (it.data?.get(0)?.status == true) {
                                 it.data[0].error?.let { it1 -> toast(it1) }
+
+                                // check whether user is active or not
 
                                 if (it.data[0].active == true) {
                                     gotoActivity(MenuActivity::class.java)
 
+                                    // userNo and isLogin sent in preferences
+
                                     it.data[0].userNo?.let { it1 ->
-                                        LoginPreferences.put(this,userNo, it1)
+                                        LocalPreferences.put(this,userNo, it1)
                                     }
-                                    LoginPreferences.put(this,isLogin,true)
-
+                                    LocalPreferences.put(this,isLogin,true)
                                 } else { }
-
                             } else {
                                 it.data?.get(0)?.error?.let { it1 -> toast(it1) }
                             }
@@ -126,6 +128,8 @@ class LoginActivity : AppCompatActivity() {
 
         val userID = binding.userIdET.text.toString()
         val password = binding.passwordET.text.toString()
+
+        //validations for fields and send parameters in viewModel
 
         if (userID.isNullOrEmpty() or password.isNullOrEmpty()) {
             toast("Field must be empty")

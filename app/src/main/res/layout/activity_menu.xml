@@ -40,17 +40,26 @@
         android:background="@drawable/white_rounded_bg"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/tapContinueTV"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_30sdp"
-            android:fontFamily="@font/amiko"
-            android:text="Tap to continue "
-            android:textColor="@color/black"
-            android:textSize="@dimen/_18ssp"
-            android:textStyle="bold" />
+            android:layout_marginStart="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/businessLocSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:fontFamily="@font/amiko"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18ssp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -58,7 +67,7 @@
             android:layout_below="@+id/tapContinueTV"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:orientation="vertical">
 

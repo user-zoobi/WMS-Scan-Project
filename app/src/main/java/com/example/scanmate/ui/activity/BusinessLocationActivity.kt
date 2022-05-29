@@ -2,25 +2,18 @@ package com.example.scanmate.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.scanmate.R
 import com.example.scanmate.adapter.recyclerview.PalletsAdapter
 import com.example.scanmate.adapter.recyclerview.RacksAdapter
 import com.example.scanmate.adapter.recyclerview.ShelfAdapter
 import com.example.scanmate.adapter.recyclerview.WarehouseAdapter
-import com.example.scanmate.data.callback.Status
 import com.example.scanmate.data.response.UserLocationResponse
 import com.example.scanmate.databinding.ActivityBusinessLocationBinding
 import com.example.scanmate.extensions.*
 import com.example.scanmate.util.CustomProgressDialog
-import com.example.scanmate.util.LoginPreferences
-import com.example.scanmate.util.LoginPreferences.AppConstants.orgBusLocNo
-import com.example.scanmate.util.LoginPreferences.AppLoginPreferences.userNo
-import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 
 class BusinessLocationActivity : AppCompatActivity() {
@@ -42,33 +35,6 @@ class BusinessLocationActivity : AppCompatActivity() {
         dialog = CustomProgressDialog(this)
         setupUi()
         viewModel = obtainViewModel(MainViewModel::class.java)
-
-        val userNo = LoginPreferences.getInt(this,userNo).toString()
-        viewModel.userLocation(Utils.getSimpleTextBody(userNo))
-
-        viewModel.userLoc.observe(this, Observer {
-            it.let {
-                when(it.status){
-                    Status.LOADING ->{
-                        dialog.show()
-                    }
-                    Status.SUCCESS ->{
-                        dialog.dismiss()
-                        it.data?.get(0)?.busLocationName?.let { it1 -> Log.i("userDataLocal", it1) }
-                        it.data?.get(0)?.orgBusLocNo?.let { it1 ->
-                            LoginPreferences.put(this,orgBusLocNo, it1)
-                        }
-                        list = it.data as ArrayList<UserLocationResponse>
-                        warehouseAdapter.addItems(list)
-                    }
-                    Status.ERROR ->{
-                        dialog.dismiss()
-                    }
-                }
-            }
-        })
-
-        Log.i("userDataLocal", LoginPreferences.getInt(this,"userNo").toString())
 
     }
 
