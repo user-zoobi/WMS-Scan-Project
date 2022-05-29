@@ -32,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-
     private fun setupUi(){
 
         supportActionBar?.hide()

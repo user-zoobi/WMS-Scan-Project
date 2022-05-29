@@ -38,7 +38,7 @@
         android:layout_below="@+id/userNameTV"
         android:layout_centerVertical="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/white_rounded_bg"
+        android:background="@drawable/top_rounded_white_bg"
         android:orientation="vertical">
 
     </androidx.appcompat.widget.LinearLayoutCompat>

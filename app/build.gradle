@@ -109,4 +109,7 @@ dependencies {
     //roomDb
     implementation "androidx.room:room-runtime:2.4.2"
     annotationProcessor "androidx.room:room-compiler:2.4.2"
+
+    //powermenu
+    implementation "com.github.skydoves:powermenu:2.2.0"
 }

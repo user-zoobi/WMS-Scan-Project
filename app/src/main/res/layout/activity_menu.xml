@@ -35,36 +35,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/headerTV"
-        android:layout_centerVertical="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/white_rounded_bg"
+        android:background="@drawable/top_rounded_white_bg"
         android:orientation="vertical">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/tapContinueTV"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/busSpinnerCont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            app:cardCornerRadius="@dimen/_10sdp"
-            app:cardElevation="@dimen/_5sdp">
+            android:layout_marginEnd="@dimen/_20sdp"
+            app:cardElevation="@dimen/_10sdp">
 
             <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/businessLocSpinner"
+                android:id="@+id/businessSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
-                android:fontFamily="@font/amiko"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_18ssp" />
+                android:layout_height="wrap_content"/>
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
+
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tapContinueTV"
+            android:layout_below="@+id/busSpinnerCont"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20sdp"
@@ -226,8 +222,8 @@
                     android:id="@+id/placeCartonIV"
                     android:layout_width="@dimen/_150sdp"
                     android:layout_height="@dimen/_150sdp"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/shelfIV"
+                    android:layout_alignParentStart="true"
                     android:layout_margin="@dimen/_7sdp"
                     app:cardCornerRadius="@dimen/_20sdp"
                     app:cardElevation="@dimen/_10sdp">
@@ -262,9 +258,10 @@
             </RelativeLayout>
 
 
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>
