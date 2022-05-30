@@ -59,7 +59,7 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/batchNoET"
+                android:id="@+id/warehouseName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginStart="@dimen/_20sdp"

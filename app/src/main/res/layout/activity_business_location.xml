@@ -67,10 +67,10 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
                 android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 app:cardElevation="@dimen/_5sdp">
 
                 <androidx.appcompat.widget.AppCompatSpinner
@@ -134,7 +134,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:itemCount="4"
                 tools:listitem="@layout/warehouse_list_view" />
 

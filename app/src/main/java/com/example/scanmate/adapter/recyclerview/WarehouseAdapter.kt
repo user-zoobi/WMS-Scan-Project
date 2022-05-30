@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanmate.R
+import com.example.scanmate.data.response.GetWarehouseResponse
 import com.example.scanmate.databinding.WarehouseListViewBinding
 import com.example.scanmate.data.response.UserLocationResponse
 
 class WarehouseAdapter(
-    private val list:ArrayList<UserLocationResponse>
+    private val list:ArrayList<GetWarehouseResponse>
     )  : RecyclerView.Adapter<WarehouseAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -24,13 +25,14 @@ class WarehouseAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
         with(holder){
-           binding.wrhTV.text = data.busLocationName
+           binding.wrhTV.text = data.wHName
+           binding.wrhNo.text = data.wHNo.toString()
         }
     }
 
     override fun getItemCount(): Int = list.size
 
-    fun addItems(listItems:ArrayList<UserLocationResponse>){
+    fun addItems(listItems:ArrayList<GetWarehouseResponse>){
         list.addAll(listItems)
         notifyDataSetChanged()
     }

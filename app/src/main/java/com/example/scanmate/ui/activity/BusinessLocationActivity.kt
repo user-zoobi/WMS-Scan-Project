@@ -14,6 +14,7 @@ import com.example.scanmate.adapter.recyclerview.RacksAdapter
 import com.example.scanmate.adapter.recyclerview.ShelfAdapter
 import com.example.scanmate.adapter.recyclerview.WarehouseAdapter
 import com.example.scanmate.data.callback.Status
+import com.example.scanmate.data.response.GetWarehouseResponse
 import com.example.scanmate.data.response.UserLocationResponse
 import com.example.scanmate.databinding.ActivityBusinessLocationBinding
 import com.example.scanmate.extensions.*
@@ -39,7 +40,7 @@ class BusinessLocationActivity : AppCompatActivity() {
     private lateinit var palletAdapter: PalletsAdapter
     private lateinit var viewModel: MainViewModel
     private lateinit var dialog: CustomProgressDialog
-    private lateinit var list: ArrayList<UserLocationResponse>
+    private lateinit var list: ArrayList<GetWarehouseResponse>
 
     private var screen = ""
 
@@ -51,7 +52,6 @@ class BusinessLocationActivity : AppCompatActivity() {
         setupUi()
         viewModel = obtainViewModel(MainViewModel::class.java)
         initObserver()
-
     }
 
     private fun initObserver(){
@@ -74,13 +74,19 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.getWarehouse(WH_Name = "", LocationNo = "1")
         viewModel.getWarehouse.observe(this,Observer{
             when(it.status){
                 Status.LOADING->{
                     dialog.show()
+
                 }
                 Status.SUCCESS ->{
                     dialog.dismiss()
+                    it.data?.get(0)?.wHCode?.let { it1 -> Log.i("warehouseResponse", it1) }
+                    list = it.data as ArrayList<GetWarehouseResponse>
+                    warehouseAdapter.addItems(list)
+
 
                 }
                 Status.ERROR ->{
@@ -164,51 +170,13 @@ class BusinessLocationActivity : AppCompatActivity() {
         {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                when(businessLocSpinner.selectedItem.toString()){
-                    "BOSCH PLANT I" ->{
-                        var boschLoc1 = 1
-                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc1, boschLoc1)
-                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc1).toString())
-                    }
-                    "BOSCH PLANT II" ->{
-                        var boschLoc2 = 2
-                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc2, boschLoc2)
-                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc2).toString())
-                    }
-                    "LINZ PLANT" ->{
+                when(screen){
 
-                        var boschLoc4 = 4
-                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc4, boschLoc4)
-                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc4).toString())
-                    }
-                    "LINZ HEAD OFFICE" ->{
-
-                        var boschLoc5 = 5
-                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc5, boschLoc5)
-                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc5).toString())
-                    }
-                    "BOSCH 219" ->{
-
-                        var boschLoc6 = 6
-                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc6, boschLoc6)
-                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc6).toString())
-                    }
-                    "BOSCH 15" ->{
-                        var boschLoc7 = 7
-                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc7, boschLoc7)
-                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc7).toString())
-                    }
-                    "PIP (PVT.) LTD." ->{
-                        var boschLoc8 = 8
-                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc8, boschLoc8)
-                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc8).toString())
-                    }
-                    "Deutsche Bio-Sys" ->{
-                        var boschLoc10 = 10
-                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc10, boschLoc10)
-                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc10).toString())
-                    }
                 }
+                if (businessLocSpinner.selectedItem as Boolean){
+                    binding.warehouseRV.gone()
+                }
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
@@ -219,12 +187,7 @@ class BusinessLocationActivity : AppCompatActivity() {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
                 when (rackSpinner.selectedItem.toString()){
-                    "rack I ( R1 )","rack II ( R2 )","rack III ( R2 )" ->{
-                        binding.racksRV.visible()
-                    }
-                    "Select racks" -> {
-                        binding.shelfRV.gone()
-                    }
+
                 }
             }
 
@@ -238,12 +201,7 @@ class BusinessLocationActivity : AppCompatActivity() {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
                 when (shelfSpinner.selectedItem.toString()){
-                    "shelf I","shelf II","shelf III" ->{
-                        binding.palletsRV.visible()
-                    }
-                    "Select shelf" -> {
-                        binding.palletsRV.gone()
-                    }
+
                 }
             }
 
@@ -256,21 +214,13 @@ class BusinessLocationActivity : AppCompatActivity() {
         {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                when (palletSpinner.selectedItem.toString()){
-                    "pallet I","pallet II","pallet III" ->{
-                        binding.palletsRV.visible()
-                    }
-                    "Select pallet" -> {
-                        binding.palletsRV.gone()
-                    }
-                }
+
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
             }
         }
-
 
         binding.addBTN.click{
             gotoActivity(WarehouseDetailsActivity::class.java)
