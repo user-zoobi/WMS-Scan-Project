@@ -13,6 +13,9 @@ import com.example.scanmate.util.Constants.LogMessages.success
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LocalPreferences
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.isLogin
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.loginTime
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userDesignation
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userName
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
@@ -75,6 +78,8 @@ class LoginActivity : AppCompatActivity() {
                                         LocalPreferences.put(this,userNo, it1)
                                     }
                                     LocalPreferences.put(this,isLogin,true)
+                                    LocalPreferences.put(this,userDesignation, it.data[0].desigName.toString())
+                                    LocalPreferences.put(this,userName, it.data[0].userName.toString())
                                 } else { }
                             } else {
                                 it.data?.get(0)?.error?.let { it1 -> toast(it1) }

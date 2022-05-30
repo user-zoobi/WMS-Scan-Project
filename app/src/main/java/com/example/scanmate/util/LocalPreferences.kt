@@ -49,12 +49,30 @@ object LocalPreferences {
         const val mobileNo = "mobileNo"
         const val extensionNo = "extensionNo"
         const val isLogin = "isLogin"
+        const val userDesignation = "userDesignation"
+        const val loginTime = "loginTime"
+        const val userName = "userName"
 
     }
 
     object AppConstants{
 
         const val orgBusLocNo = "OrgBusLocNo"
+
+    }
+
+    object SpinnerKeys{
+
+        const val businessLoc1 = "businessLoc1"
+        const val businessLoc2 = "businessLoc2"
+        const val businessLoc3 = "businessLoc3"
+        const val businessLoc4 = "businessLoc4"
+        const val businessLoc5 = "businessLoc5"
+        const val businessLoc6 = "businessLoc6"
+        const val businessLoc7 = "businessLoc7"
+        const val businessLoc8 = "businessLoc8"
+        const val businessLoc9 = "businessLoc9"
+        const val businessLoc10 = "businessLoc10"
 
     }
 }

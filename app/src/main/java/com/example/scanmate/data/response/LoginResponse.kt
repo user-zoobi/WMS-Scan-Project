@@ -45,6 +45,10 @@ class LoginResponse {
     @Expose
      val empNo: Int? = null
 
+    @SerializedName("DesigName")
+    @Expose
+     val desigName: String? = null
+
     @SerializedName("DeptNo")
     @Expose
      val deptNo: Int? = null
@@ -68,6 +72,10 @@ class LoginResponse {
     @SerializedName("PwdExpired")
     @Expose
      val pwdExpired: Boolean? = null
+
+    @SerializedName("LoginDT")
+    @Expose
+     val loginDT: String? = null
 
     @SerializedName("Status")
     @Expose

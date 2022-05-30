@@ -2,18 +2,33 @@ package com.example.scanmate.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.scanmate.R
 import com.example.scanmate.adapter.recyclerview.PalletsAdapter
 import com.example.scanmate.adapter.recyclerview.RacksAdapter
 import com.example.scanmate.adapter.recyclerview.ShelfAdapter
 import com.example.scanmate.adapter.recyclerview.WarehouseAdapter
+import com.example.scanmate.data.callback.Status
 import com.example.scanmate.data.response.UserLocationResponse
 import com.example.scanmate.databinding.ActivityBusinessLocationBinding
 import com.example.scanmate.extensions.*
 import com.example.scanmate.util.CustomProgressDialog
+import com.example.scanmate.util.LocalPreferences
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
+import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc1
+import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc10
+import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc2
+import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc4
+import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc5
+import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc6
+import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc7
+import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc8
+import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 
 class BusinessLocationActivity : AppCompatActivity() {
@@ -35,7 +50,44 @@ class BusinessLocationActivity : AppCompatActivity() {
         dialog = CustomProgressDialog(this)
         setupUi()
         viewModel = obtainViewModel(MainViewModel::class.java)
+        initObserver()
 
+    }
+
+    private fun initObserver(){
+
+        viewModel.userLocation(
+            Utils.getSimpleTextBody(LocalPreferences.getInt(this@BusinessLocationActivity, userNo).toString())
+        )
+        viewModel.userLoc.observe(this, Observer {
+            when(it.status){
+                Status.LOADING->{
+                    dialog.show()
+                }
+                Status.SUCCESS ->{
+                   dialog.dismiss()
+                    showBusLocSpinner(it.data!!)
+                }
+                Status.ERROR ->{
+                    dialog.dismiss()
+                }
+            }
+        })
+
+        viewModel.getWarehouse.observe(this,Observer{
+            when(it.status){
+                Status.LOADING->{
+                    dialog.show()
+                }
+                Status.SUCCESS ->{
+                    dialog.dismiss()
+
+                }
+                Status.ERROR ->{
+                    dialog.dismiss()
+                }
+            }
+        })
     }
 
     private fun setupUi(){
@@ -112,18 +164,49 @@ class BusinessLocationActivity : AppCompatActivity() {
         {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                when (businessLocSpinner.selectedItem.toString())
-                {
-                    "Plant I", "Plant II",  "Plant III" -> {
-                        when (screen) {
-                            "W" -> binding.warehouseRV.visible()
-                            "R" -> binding.rackSpinner.visible()
-                            "S" -> binding.shelfSpinner.visible()
-                            "P" -> binding.palletSpinner.visible()
-                        }
+                when(businessLocSpinner.selectedItem.toString()){
+                    "BOSCH PLANT I" ->{
+                        var boschLoc1 = 1
+                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc1, boschLoc1)
+                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc1).toString())
                     }
-                    "Select business location"-> {
-                        binding.warehouseRV.gone()
+                    "BOSCH PLANT II" ->{
+                        var boschLoc2 = 2
+                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc2, boschLoc2)
+                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc2).toString())
+                    }
+                    "LINZ PLANT" ->{
+
+                        var boschLoc4 = 4
+                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc4, boschLoc4)
+                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc4).toString())
+                    }
+                    "LINZ HEAD OFFICE" ->{
+
+                        var boschLoc5 = 5
+                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc5, boschLoc5)
+                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc5).toString())
+                    }
+                    "BOSCH 219" ->{
+
+                        var boschLoc6 = 6
+                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc6, boschLoc6)
+                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc6).toString())
+                    }
+                    "BOSCH 15" ->{
+                        var boschLoc7 = 7
+                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc7, boschLoc7)
+                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc7).toString())
+                    }
+                    "PIP (PVT.) LTD." ->{
+                        var boschLoc8 = 8
+                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc8, boschLoc8)
+                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc8).toString())
+                    }
+                    "Deutsche Bio-Sys" ->{
+                        var boschLoc10 = 10
+                        LocalPreferences.put(this@BusinessLocationActivity, LocalPreferences.SpinnerKeys.businessLoc10, boschLoc10)
+                        viewModel.getWarehouse("",LocalPreferences.getInt(this@BusinessLocationActivity, businessLoc10).toString())
                     }
                 }
             }
@@ -194,4 +277,34 @@ class BusinessLocationActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun showBusLocSpinner(data:List<UserLocationResponse>) {
+        //String array to store all the book names
+        val items = arrayOfNulls<String>(data.size)
+        val businessLocSpinner = binding.businessLocationSpinner
+
+        //Traversing through the whole list to get all the names
+        for (i in data.indices) {
+            //Storing names to string array
+            items[i] = data[i].busLocationName
+            businessLocSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+
+                override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
+                    Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
+
+
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+            }
+        }
+        //Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+        val adapter: ArrayAdapter<String?> =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
+        //setting adapter to spinner
+        businessLocSpinner.adapter = adapter
+    }
+
 }
