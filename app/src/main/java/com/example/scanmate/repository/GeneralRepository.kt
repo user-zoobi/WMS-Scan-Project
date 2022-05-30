@@ -38,4 +38,22 @@ class GeneralRepository :ApiHelper{
             WH_No, WH_Name, WH_Code, LocationNo, DMLUserNo, DMLPCName
         )
     }
+
+    override suspend fun getRack(
+        RackName: RequestBody, WH_No: RequestBody, LocationNo: RequestBody
+    ): List<GetRackResponse> {
+        return RetrofitClient.apiservice.getRack(
+            RackName, WH_No, LocationNo
+        )
+    }
+
+    override suspend fun getShelf(
+        ShelfName: RequestBody,
+        RackNo: RequestBody,
+        LocationNo: RequestBody
+    ): List<GetShelfResponse> {
+        return RetrofitClient.apiservice.getShelf(
+            ShelfName, RackNo, LocationNo
+        )
+    }
 }

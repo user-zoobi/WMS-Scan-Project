@@ -47,12 +47,9 @@
     <string name="tap">Add Warehouse</string>
     <string name="done">Done</string>
 
-<!--    <string-array name="places">-->
-<!--        <item>Select business location</item>-->
-<!--        <item>Plant I</item>-->
-<!--        <item>Plant II</item>-->
-<!--        <item>Plant III</item>-->
-<!--    </string-array>-->
+    <string-array name="places">
+        <item>Select business location</item>
+    </string-array>
 
 <!--    <string-array name="warehouse">-->
 <!--        <item>Select warehouse</item>-->

@@ -4,6 +4,7 @@ import com.example.scanmate.data.api.RetrofitClient
 import com.example.scanmate.data.response.*
 import okhttp3.RequestBody
 import retrofit2.http.Field
+import retrofit2.http.Part
 
 interface ApiHelper {
 
@@ -31,5 +32,17 @@ interface ApiHelper {
     ):AddUpdateWarehouseResponse
     = RetrofitClient.apiservice.addUpdateWarehouse(
         WH_No, WH_Name, WH_Code, LocationNo, DMLUserNo, DMLPCName
+    )
+
+    suspend fun getRack(
+        RackName:RequestBody, WH_No:RequestBody, LocationNo:RequestBody
+    ):List<GetRackResponse> = RetrofitClient.apiservice.getRack(
+        RackName, WH_No, LocationNo
+    )
+
+    suspend fun getShelf(
+        ShelfName:RequestBody, RackNo:RequestBody, LocationNo:RequestBody
+    ):List<GetShelfResponse> = RetrofitClient.apiservice.getShelf(
+        ShelfName, RackNo, LocationNo
     )
 }

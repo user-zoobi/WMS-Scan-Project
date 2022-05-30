@@ -4,6 +4,8 @@ import com.example.scanmate.data.response.*
 import com.example.scanmate.data.routes.Routes.EndPoint.addRack
 import com.example.scanmate.data.routes.Routes.EndPoint.addShelf
 import com.example.scanmate.data.routes.Routes.EndPoint.addUpdateWarehouse
+import com.example.scanmate.data.routes.Routes.EndPoint.getRack
+import com.example.scanmate.data.routes.Routes.EndPoint.getShelf
 import com.example.scanmate.data.routes.Routes.EndPoint.getWarehouse
 import com.example.scanmate.data.routes.Routes.EndPoint.userAuth
 import com.example.scanmate.data.routes.Routes.EndPoint.userLoc
@@ -78,5 +80,22 @@ interface ApiService {
         @Part("DMLPCName") DMLPCName:RequestBody
     ):AddShelfResponse
 
+
+    @Multipart
+    @POST(getRack)
+    suspend fun getRack(
+        @Part("RackName") RackName:RequestBody,
+        @Part("WH_No") WH_No:RequestBody,
+        @Part("LocationNo") LocationNo:RequestBody
+    ):List<GetRackResponse>
+
+
+    @Multipart
+    @POST(getShelf)
+    suspend fun getShelf(
+        @Part("ShelfName") ShelfName:RequestBody,
+        @Part("RackNo") RackNo:RequestBody,
+        @Part("LocationNo") LocationNo:RequestBody
+    ):List<GetShelfResponse>
 
 }

@@ -52,9 +52,6 @@ class MenuActivity : AppCompatActivity() {
         dialog = CustomProgressDialog(this)
         setTransparentStatusBarColor(R.color.transparent)
         initListeners()
-
-        LocalPreferences.getString(this, userName)?.let { Log.i("value", it) }
-
     }
 
     override fun onBackPressed() {
@@ -64,10 +61,10 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun initObserver(){
+
         /**
          *  User location api observer
          */
-
         viewModel.userLocation(
             Utils.getSimpleTextBody(LocalPreferences.getInt(this, userNo).toString())
         )
@@ -88,13 +85,11 @@ class MenuActivity : AppCompatActivity() {
                 Status.ERROR ->{
                     dialog.dismiss()
                 }
-            }
-        })
+            }})
 
         /**
          *  User Menu api observer
          */
-
         viewModel.userMenu.observe(this, Observer {
             when(it.status){
                 Status.LOADING -> dialog.show()
@@ -148,86 +143,14 @@ class MenuActivity : AppCompatActivity() {
 
                 override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
                     Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
-
-                    when(businessLocSpinner.selectedItem.toString()){
-                        "BOSCH PLANT I" ->{
-                            var boschLoc1 = 1
-                            LocalPreferences.put(this@MenuActivity, businessLoc1, boschLoc1)
-                            viewModel.userMenu(
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, userNo).toString()),
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity,businessLoc1).toString())
-                            )
-                        }
-                        "BOSCH PLANT II" ->{
-                            var boschLoc2 = 2
-                            LocalPreferences.put(this@MenuActivity, businessLoc2, boschLoc2)
-                            viewModel.userMenu(
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, userNo).toString()),
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity,
-                                    businessLoc2).toString())
-                            )
-                        }
-                        "LINZ PLANT" ->{
-                            var boschLoc4 = 4
-                            LocalPreferences.put(this@MenuActivity, businessLoc4, boschLoc4)
-                            viewModel.userMenu(
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, userNo).toString()),
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity,businessLoc4).toString())
-                            )
-                        }
-                        "LINZ HEAD OFFICE" ->{
-                            var boschLoc5 = 5
-                            LocalPreferences.put(this@MenuActivity, businessLoc5, boschLoc5)
-                            viewModel.userMenu(
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, userNo).toString()),
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, businessLoc5).toString())
-                            )
-                        }
-                        "BOSCH 219" ->{
-                            var boschLoc6 = 6
-                            LocalPreferences.put(this@MenuActivity, businessLoc6, boschLoc6)
-                            viewModel.userMenu(
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, userNo).toString()),
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, businessLoc6).toString())
-                            )
-                        }
-                        "BOSCH 15" ->{
-                            var boschLoc7 = 7
-                            LocalPreferences.put(this@MenuActivity, businessLoc7, boschLoc7)
-                            viewModel.userMenu(
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, userNo).toString()),
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity,businessLoc7).toString())
-                            )
-                        }
-                        "PIP (PVT.) LTD." ->{
-                            var boschLoc8 = 8
-                            LocalPreferences.put(this@MenuActivity, businessLoc8, boschLoc8)
-                            viewModel.userMenu(
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, userNo).toString()),
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity,businessLoc8).toString())
-                            )
-                        }
-                        "Deutsche Bio-Sys" ->{
-                            var boschLoc10 = 10
-                            LocalPreferences.put(this@MenuActivity, businessLoc10, boschLoc10)
-                            viewModel.userMenu(
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity, userNo).toString()),
-                                Utils.getSimpleTextBody(LocalPreferences.getInt(this@MenuActivity,businessLoc10).toString())
-                            )
-                        }
-                    }
                 }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                }
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
             }
         }
-        //Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+
         val adapter: ArrayAdapter<String?> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         //setting adapter to spinner
         binding.businessSpinner.adapter = adapter
     }
-
 }

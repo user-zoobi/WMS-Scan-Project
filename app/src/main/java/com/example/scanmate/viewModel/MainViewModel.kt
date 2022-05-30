@@ -121,4 +121,46 @@ class MainViewModel : ViewModel() {
         }
     }
 
+
+    private val _getRack = MutableLiveData<ApiResponseCallback<List<GetRackResponse>>>()
+    val getRack : LiveData<ApiResponseCallback<List<GetRackResponse>>>
+    get() = _getRack
+
+    fun getRack(
+        RackName: RequestBody, WH_No: RequestBody, LocationNo: RequestBody
+    ){
+        _getRack.value = ApiResponseCallback.loading()
+
+        viewModelScope.launch {
+            try {
+                _getRack.value = ApiResponseCallback.success(repository.getRack(
+                    RackName, WH_No, LocationNo
+                ))
+            }catch (e:Exception){
+                _getRack.value = ApiResponseCallback.error("${e.message}",null)
+            }
+        }
+    }
+
+
+    private val _getShelf = MutableLiveData<ApiResponseCallback<List<GetShelfResponse>>>()
+    val getShelf : LiveData<ApiResponseCallback<List<GetShelfResponse>>>
+    get() = _getShelf
+
+    fun getShelf(
+        ShelfName: RequestBody, RackNo: RequestBody, LocationNo: RequestBody
+    ){
+        viewModelScope.launch {
+            _getShelf.value = ApiResponseCallback.loading()
+
+            try {
+                _getShelf.value = ApiResponseCallback.success(repository.getShelf(
+                    ShelfName, RackNo, LocationNo
+                ))
+            }catch (e:Exception){
+                _getShelf.value = ApiResponseCallback.error("${e.message}",null)
+            }
+        }
+    }
+
 }
