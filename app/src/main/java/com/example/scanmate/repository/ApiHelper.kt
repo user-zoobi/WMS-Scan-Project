@@ -45,4 +45,18 @@ interface ApiHelper {
     ):List<GetShelfResponse> = RetrofitClient.apiservice.getShelf(
         ShelfName, RackNo, LocationNo
     )
+
+    suspend fun addShelf(
+        RackNo:RequestBody, RackName:RequestBody, RackCode:RequestBody, WH_No:RequestBody,
+        Capacity:RequestBody, LocationNo:RequestBody, DMLUserNo:RequestBody, DMLPCName:RequestBody
+    ):AddShelfResponse = RetrofitClient.apiservice.addShelf(
+        RackNo, RackName, RackCode, WH_No, Capacity, LocationNo, DMLUserNo, DMLPCName
+    )
+
+    suspend fun addRacks(
+        RackNo:RequestBody, RackName:RequestBody, RackCode:RequestBody, WH_No:RequestBody,
+        Capacity:RequestBody, LocationNo:RequestBody, DMLUserNo:RequestBody, DMLPCName:RequestBody
+    ):AddRackResponse = RetrofitClient.apiservice.addRack(
+        RackNo, RackName, RackCode, WH_No, Capacity, LocationNo, DMLUserNo, DMLPCName
+    )
 }

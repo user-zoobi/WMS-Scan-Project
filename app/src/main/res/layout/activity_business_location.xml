@@ -16,11 +16,10 @@
         android:fontFamily="@font/amiko"
         android:text="Muhammad Zohaib Hassan"
         android:textColor="@color/white"
-        android:textSize="@dimen/_20ssp"
-        android:textStyle="bold" />
+        android:textSize="@dimen/_20ssp" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/userDeptTV"
+        android:id="@+id/userDesignTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userNameTV"
@@ -40,7 +39,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/userDeptTV"
+        android:layout_below="@id/userDesignTV"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@drawable/top_rounded_white_bg">
 
@@ -113,8 +112,8 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                app:cardElevation="@dimen/_5sdp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:cardElevation="@dimen/_5sdp">
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/rackSpinner"
@@ -131,11 +130,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                app:cardElevation="@dimen/_5sdp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:cardElevation="@dimen/_5sdp">
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/shelfSpinner"
@@ -156,17 +155,16 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
-                app:cardElevation="@dimen/_5sdp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:cardElevation="@dimen/_5sdp">
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/palletSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_20sdp"
-                android:spinnerMode="dropdown"
-                 />
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/palletSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_20sdp"
+                    android:spinnerMode="dropdown" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -213,7 +211,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/addBTN"
+        android:id="@+id/whAddBTN"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:layout_alignParentEnd="true"
@@ -223,6 +221,48 @@
         android:layout_marginBottom="@dimen/_100sdp"
         android:background="@drawable/blue_circle_bg"
         android:src="@drawable/white_add_icon"
-        android:padding="@dimen/_10sdp"/>
+        android:padding="@dimen/_10sdp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/rackAddBTN"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_100sdp"
+        android:background="@drawable/blue_circle_bg"
+        android:src="@drawable/white_add_icon"
+        android:padding="@dimen/_10sdp"
+        android:visibility="gone"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/shelfAddBTN"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_100sdp"
+        android:background="@drawable/blue_circle_bg"
+        android:src="@drawable/white_add_icon"
+        android:padding="@dimen/_10sdp"
+        android:visibility="gone"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/palletAddBTN"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_100sdp"
+        android:background="@drawable/blue_circle_bg"
+        android:src="@drawable/white_add_icon"
+        android:padding="@dimen/_10sdp"
+        android:visibility="gone"/>
 
 </RelativeLayout>

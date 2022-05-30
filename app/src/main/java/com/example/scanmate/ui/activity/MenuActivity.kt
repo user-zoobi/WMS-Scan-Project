@@ -51,6 +51,8 @@ class MenuActivity : AppCompatActivity() {
         supportActionBar?.hide()
         dialog = CustomProgressDialog(this)
         setTransparentStatusBarColor(R.color.transparent)
+        binding.uNameTV.text = LocalPreferences.getString(this, userName)
+        binding.designationTV.text = LocalPreferences.getString(this, userDesignation)
         initListeners()
     }
 

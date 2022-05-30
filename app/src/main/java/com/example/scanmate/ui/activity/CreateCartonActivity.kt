@@ -5,27 +5,41 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.lifecycle.Observer
 import com.example.scanmate.R
 import com.example.scanmate.databinding.ActivityBusinessLocationBinding
 import com.example.scanmate.databinding.ActivityCreateCartonBinding
 import com.example.scanmate.databinding.ActivityLoginBinding
-import com.example.scanmate.extensions.gone
-import com.example.scanmate.extensions.setTransparentStatusBarColor
-import com.example.scanmate.extensions.toast
-import com.example.scanmate.extensions.visible
+import com.example.scanmate.extensions.*
+import com.example.scanmate.util.CustomProgressDialog
+import com.example.scanmate.util.LocalPreferences
+import com.example.scanmate.viewModel.MainViewModel
 
 class CreateCartonActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateCartonBinding
+    private lateinit var viewModel: MainViewModel
+    private lateinit var dialog: CustomProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateCartonBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = obtainViewModel(MainViewModel::class.java)
+        setupUi()
+
+    }
+
+    private fun setupUi(){
+        dialog = CustomProgressDialog(this)
+        binding.userNameTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.userName
+        )
+        binding.userDesignTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.userDesignation
+        )
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
-
         initListener()
-
     }
 
     private fun initListener(){
@@ -101,6 +115,13 @@ class CreateCartonActivity : AppCompatActivity() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
+
+    }
+
+    private fun initObserver(){
+        viewModel.addUpdateWarehouse.observe(this, Observer {
+
+        })
 
     }
 }

@@ -13,6 +13,9 @@ import com.example.scanmate.extensions.click
 import com.example.scanmate.extensions.obtainViewModel
 import com.example.scanmate.extensions.setTransparentStatusBarColor
 import com.example.scanmate.extensions.toast
+import com.example.scanmate.util.Constants.WMSStructure.pallets
+import com.example.scanmate.util.Constants.WMSStructure.racks
+import com.example.scanmate.util.Constants.WMSStructure.shelf
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LocalPreferences
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
@@ -38,7 +41,21 @@ class WarehouseDetailsActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
         dialog = CustomProgressDialog(this)
-    }
+
+        when {
+            intent.extras?.getBoolean(racks) == true ->
+            {
+                binding.editDetailTV.text = "Edit racks details"
+            }
+            intent.extras?.getBoolean(shelf) == true ->
+            {
+                binding.editDetailTV.text = "Edit shelf details"
+            }
+            intent.extras?.getBoolean(pallets) == true ->
+            {
+                binding.editDetailTV.text = "Edit pallets details"
+            }
+        } }
 
     private fun initListener(){
 

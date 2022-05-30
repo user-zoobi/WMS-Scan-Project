@@ -15,19 +15,20 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_50sdp"
-        android:text="Muhammad Zohaib Hassan"
         android:fontFamily="@font/amiko"
+        android:text="Muhammad Zohaib Hassan"
         android:textColor="@color/white"
         android:textSize="@dimen/_20ssp" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/userDesignTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/userNameTV"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:text="IT Department"
+        android:layout_marginStart="@dimen/_20sdp"
         android:fontFamily="@font/amiko"
+        android:text="IT Department"
         android:textColor="@color/white"
         android:textSize="@dimen/_15ssp" />
 

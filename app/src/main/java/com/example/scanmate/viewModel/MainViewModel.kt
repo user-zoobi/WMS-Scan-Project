@@ -163,4 +163,47 @@ class MainViewModel : ViewModel() {
         }
     }
 
+
+    private val _addRack = MutableLiveData<ApiResponseCallback<AddRackResponse>>()
+    val addRack : LiveData<ApiResponseCallback<AddRackResponse>>
+        get() = _addRack
+
+    fun addRack(
+        RackNo: RequestBody, RackName: RequestBody, RackCode: RequestBody, WH_No: RequestBody,
+        Capacity: RequestBody, LocationNo: RequestBody, DMLUserNo: RequestBody, DMLPCName: RequestBody
+    ){
+        viewModelScope.launch {
+            _addRack.value = ApiResponseCallback.loading()
+            try {
+                _addRack.value = ApiResponseCallback.success(repository.addRacks(
+                    RackNo, RackName, RackCode, WH_No, Capacity, LocationNo, DMLUserNo, DMLPCName
+                ))
+            }catch (e:Exception){
+                _addRack.value = ApiResponseCallback.error("${e.message}",null)
+            }
+        }
+    }
+
+
+    private val _addShelf = MutableLiveData<ApiResponseCallback<AddShelfResponse>>()
+    val addShelf : LiveData<ApiResponseCallback<AddShelfResponse>>
+        get() = _addShelf
+
+    fun addShelf(
+        RackNo: RequestBody, RackName: RequestBody, RackCode: RequestBody, WH_No: RequestBody,
+        Capacity: RequestBody, LocationNo: RequestBody, DMLUserNo: RequestBody, DMLPCName: RequestBody
+    ){
+        viewModelScope.launch {
+            _addShelf.value = ApiResponseCallback.loading()
+            try {
+                _addShelf.value = ApiResponseCallback.success(
+                    repository.addShelf(
+                        RackNo, RackName, RackCode, WH_No, Capacity, LocationNo, DMLUserNo, DMLPCName
+                    ))
+            }catch (e:Exception){
+                _addShelf.value = ApiResponseCallback.error("${e.message}",null)
+            }
+        }
+    }
+
 }

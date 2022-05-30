@@ -9,7 +9,7 @@
     android:background="@color/royal_blue">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/headerTV"
+        android:id="@+id/uNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -21,12 +21,12 @@
         android:textSize="@dimen/_20ssp" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/deptTV"
+        android:id="@+id/designationTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/headerTV"
+        android:layout_below="@id/uNameTV"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:fontFamily="@font/amiko"
         android:text="IT Department"
         android:textColor="@color/white"
@@ -35,7 +35,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/headerTV"
+        android:layout_below="@+id/uNameTV"
         android:layout_marginTop="50dp"
         android:background="@drawable/top_rounded_white_bg"
         android:orientation="vertical">

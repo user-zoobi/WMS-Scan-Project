@@ -16,4 +16,11 @@ object Constants {
         const val error = "Observer Error"
     }
 
+    object WMSStructure{
+        const val warehouse = "warehouse"
+        const val racks = "racks"
+        const val shelf = "shelf"
+        const val pallets = "pallets"
+    }
+
 }

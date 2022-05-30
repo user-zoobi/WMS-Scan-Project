@@ -1,5 +1,6 @@
 package com.example.scanmate.ui.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,8 +21,14 @@ import com.example.scanmate.data.response.GetWarehouseResponse
 import com.example.scanmate.data.response.UserLocationResponse
 import com.example.scanmate.databinding.ActivityBusinessLocationBinding
 import com.example.scanmate.extensions.*
+import com.example.scanmate.util.Constants.WMSStructure.pallets
+import com.example.scanmate.util.Constants.WMSStructure.racks
+import com.example.scanmate.util.Constants.WMSStructure.shelf
+import com.example.scanmate.util.Constants.WMSStructure.warehouse
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LocalPreferences
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userDesignation
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userName
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
 import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc1
 import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc10
@@ -58,9 +65,13 @@ class BusinessLocationActivity : AppCompatActivity() {
 
     private fun initObserver(){
 
+        /**
+         *  user location
+         */
         viewModel.userLocation(
-            Utils.getSimpleTextBody(LocalPreferences.getInt(this@BusinessLocationActivity, userNo).toString())
-        )
+            Utils.getSimpleTextBody(
+                LocalPreferences.getInt(this@BusinessLocationActivity, userNo).toString()
+            ))
         viewModel.userLoc.observe(this, Observer {
             when(it.status){
                 Status.LOADING->{
@@ -76,7 +87,13 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.getWarehouse(WH_Name = "", LocationNo = "1")
+        /**
+         *  get warehouse
+         */
+        viewModel.getWarehouse(
+            WH_Name = "",
+            LocationNo = "1"
+        )
         viewModel.getWarehouse.observe(this,Observer{
             when(it.status){
                 Status.LOADING->{
@@ -93,6 +110,9 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         })
 
+        /**
+         *  get rack
+         */
         viewModel.getRack(
             Utils.getSimpleTextBody(""),
             Utils.getSimpleTextBody("3"),
@@ -113,6 +133,9 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         })
 
+        /**
+         *  get shelf
+         */
         viewModel.getShelf(
             Utils.getSimpleTextBody(""),
             Utils.getSimpleTextBody("3"),
@@ -133,13 +156,13 @@ class BusinessLocationActivity : AppCompatActivity() {
             }
         })
 
-
-
     }
 
     private fun setupUi(){
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
+        binding.userNameTV.text = LocalPreferences.getString(this, userName)
+        binding.userDesignTV.text = LocalPreferences.getString(this, userDesignation)
 
         //visibility intent values
         when {
@@ -147,8 +170,10 @@ class BusinessLocationActivity : AppCompatActivity() {
             {
                 binding.tvHeader.text = "Warehouse"
                 binding.warehouseSpinnerCont.visible()
+                binding.palletAddBTN.gone()
+                binding.rackAddBTN.gone()
+                binding.shelfAddBTN.gone()
                 screen = "W"
-
             }
             intent.extras?.getBoolean("rackKey") == true ->
             {
@@ -156,6 +181,10 @@ class BusinessLocationActivity : AppCompatActivity() {
                 binding.businessLocationSpinner.gone()
                 binding.rackSpinnerCont.visible()
                 binding.warehouseSpinnerCont.visible()
+                binding.palletAddBTN.gone()
+                binding.whAddBTN.gone()
+                binding.shelfAddBTN.gone()
+                binding.rackAddBTN.visible()
                 screen = "R"
             }
             intent.extras?.getBoolean("shelfKey") == true ->
@@ -164,12 +193,21 @@ class BusinessLocationActivity : AppCompatActivity() {
                 binding.businessLocationSpinner.gone()
                 binding.shelfSpinnerCont.visible()
                 binding.rackSpinnerCont.visible()
+                binding.palletAddBTN.gone()
+                binding.rackAddBTN.gone()
+                binding.whAddBTN.gone()
+                binding.shelfAddBTN.visible()
+
                 screen = "S"
             }
             intent.extras?.getBoolean("palletKey") == true ->
             {
                 binding.tvHeader.text = "Pallets"
                 binding.palletSpinnerCont.visible()
+                binding.palletAddBTN.visible()
+                binding.rackAddBTN.gone()
+                binding.whAddBTN.gone()
+                binding.shelfAddBTN.gone()
                 screen = "P"
             }
 
@@ -178,7 +216,7 @@ class BusinessLocationActivity : AppCompatActivity() {
     }
 
     private fun initListeners(){
-        binding.addBTN.click{
+        binding.whAddBTN.click{
             gotoActivity(WarehouseDetailsActivity::class.java)
         }
         val businessLocSpinner = binding.businessLocationSpinner
@@ -194,6 +232,17 @@ class BusinessLocationActivity : AppCompatActivity() {
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
+
+        binding.rackAddBTN.click {
+            gotoActivity(WarehouseDetailsActivity::class.java, racks ,true)
+        }
+        binding.shelfAddBTN.click {
+            gotoActivity(WarehouseDetailsActivity::class.java, shelf ,true)
+        }
+        binding.palletAddBTN.click {
+            gotoActivity(WarehouseDetailsActivity::class.java, pallets ,true)
+        }
+
     }
 
     private fun showBusLocSpinner(data:List<UserLocationResponse>) {

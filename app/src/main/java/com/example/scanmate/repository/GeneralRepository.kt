@@ -10,11 +10,13 @@ class GeneralRepository :ApiHelper{
         UserID: RequestBody, Pwd: RequestBody
     ): List<LoginResponse> = RetrofitClient.apiservice.userAuthLogin(UserID, Pwd)
 
+
     override suspend fun userLocation(
         UserNo: RequestBody
     ): List<UserLocationResponse> {
         return RetrofitClient.apiservice.userLocation(UserNo)
     }
+
 
     override suspend fun userMenu(
         UserNo: RequestBody,
@@ -22,6 +24,7 @@ class GeneralRepository :ApiHelper{
     ): List<UserMenuResponse> {
         return RetrofitClient.apiservice.userMenu(UserNo, LocationNo)
     }
+
 
     override suspend fun getWarehouse(
         WH_Name: String,
@@ -39,6 +42,7 @@ class GeneralRepository :ApiHelper{
         )
     }
 
+
     override suspend fun getRack(
         RackName: RequestBody, WH_No: RequestBody, LocationNo: RequestBody
     ): List<GetRackResponse> {
@@ -47,6 +51,7 @@ class GeneralRepository :ApiHelper{
         )
     }
 
+
     override suspend fun getShelf(
         ShelfName: RequestBody,
         RackNo: RequestBody,
@@ -54,6 +59,24 @@ class GeneralRepository :ApiHelper{
     ): List<GetShelfResponse> {
         return RetrofitClient.apiservice.getShelf(
             ShelfName, RackNo, LocationNo
+        )
+    }
+
+    override suspend fun addRacks(
+        RackNo: RequestBody, RackName: RequestBody, RackCode: RequestBody, WH_No: RequestBody,
+        Capacity: RequestBody, LocationNo: RequestBody, DMLUserNo: RequestBody, DMLPCName: RequestBody
+    ): AddRackResponse {
+        return RetrofitClient.apiservice.addRack(
+            RackNo, RackName, RackCode, WH_No, Capacity, LocationNo, DMLUserNo, DMLPCName
+        )
+    }
+
+    override suspend fun addShelf(
+        RackNo: RequestBody, RackName: RequestBody, RackCode: RequestBody, WH_No: RequestBody,
+        Capacity: RequestBody, LocationNo: RequestBody, DMLUserNo: RequestBody, DMLPCName: RequestBody
+    ): AddShelfResponse {
+        return RetrofitClient.apiservice.addShelf(
+            RackNo, RackName, RackCode, WH_No, Capacity, LocationNo, DMLUserNo, DMLPCName
         )
     }
 }
