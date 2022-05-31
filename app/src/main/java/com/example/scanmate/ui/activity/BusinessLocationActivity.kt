@@ -27,7 +27,9 @@ import com.example.scanmate.util.Constants.WMSStructure.shelf
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LocalPreferences
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.busLocNo
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.rackNo
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.whNo
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 
@@ -93,6 +95,8 @@ class BusinessLocationActivity : AppCompatActivity() {
                     dialog.dismiss()
                     it.data?.get(0)?.wHName?.let { it1 -> Log.i("warehouseResponse", it1) }
                     showWarehouseSpinner(it.data!!)
+                    list = it.data as ArrayList<GetWarehouseResponse>
+                    warehouseAdapter.addItems(list)
                 }
                 Status.ERROR ->{
                     dialog.dismiss()
@@ -105,8 +109,8 @@ class BusinessLocationActivity : AppCompatActivity() {
          */
         viewModel.getRack(
             Utils.getSimpleTextBody(""),
-            Utils.getSimpleTextBody("3"),
-            Utils.getSimpleTextBody("1"),
+            Utils.getSimpleTextBody(LocalPreferences.getInt(this, whNo).toString()),
+            Utils.getSimpleTextBody(LocalPreferences.getInt(this, rackNo).toString())
         )
         viewModel.getRack.observe(this, Observer{
             when(it.status){
@@ -159,11 +163,8 @@ class BusinessLocationActivity : AppCompatActivity() {
         binding.loginTimeTV.text = LocalPreferences.getString(this,
             LocalPreferences.AppLoginPreferences.loginTime
         )
-
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
-
-
 
         //visibility intent values
         when {
@@ -180,9 +181,9 @@ class BusinessLocationActivity : AppCompatActivity() {
             intent.extras?.getBoolean("rackKey") == true ->
             {
                 binding.tvHeader.text = "Racks"
-                binding.businessLocationSpinner.gone()
+                binding.businessLocationSpinner.visible()
                 binding.rackSpinnerCont.visible()
-                binding.warehouseSpinnerCont.visible()
+                binding.warehouseSpinnerCont.gone()
                 binding.palletAddBTN.gone()
                 binding.whAddBTN.gone()
                 binding.shelfAddBTN.gone()
@@ -192,7 +193,7 @@ class BusinessLocationActivity : AppCompatActivity() {
             intent.extras?.getBoolean("shelfKey") == true ->
             {
                 binding.tvHeader.text = "Shelves"
-                binding.businessLocationSpinner.gone()
+                binding.businessLocationSpinner.visible()
                 binding.shelfSpinnerCont.visible()
                 binding.rackSpinnerCont.visible()
                 binding.palletAddBTN.gone()
@@ -205,6 +206,9 @@ class BusinessLocationActivity : AppCompatActivity() {
             intent.extras?.getBoolean("palletKey") == true ->
             {
                 binding.tvHeader.text = "Pallets"
+                binding.businessLocationSpinner.visible()
+                binding.shelfSpinnerCont.visible()
+                binding.rackSpinnerCont.visible()
                 binding.palletSpinnerCont.visible()
                 binding.palletAddBTN.visible()
                 binding.rackAddBTN.gone()
@@ -212,26 +216,25 @@ class BusinessLocationActivity : AppCompatActivity() {
                 binding.shelfAddBTN.gone()
                 screen = "P"
             }
-
         }
+
         initListeners()
+        setAdapter()
+    }
+
+    private fun setAdapter(){
+        list = ArrayList()
+        warehouseAdapter = WarehouseAdapter(list)
+        binding.warehouseRV.apply {
+            adapter = warehouseAdapter
+            layoutManager = LinearLayoutManager(this@BusinessLocationActivity)
+        }
     }
 
     private fun initListeners(){
+
         binding.whAddBTN.click{
             gotoActivity(WarehouseDetailsActivity::class.java)
-        }
-        val businessLocSpinner = binding.businessLocationSpinner
-        val wrhSpinner = binding.warehouseSpinner
-        val rackSpinner = binding.rackSpinner
-        val shelfSpinner = binding.shelfSpinner
-        val palletSpinner = binding.palletSpinner
-
-        businessLocSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, long: Long) {
-                Log.i("response", adapterView?.getItemAtPosition(position).toString())
-            }
-            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
 
         binding.rackAddBTN.click {
@@ -282,18 +285,21 @@ class BusinessLocationActivity : AppCompatActivity() {
         for (i in data.indices) {
             //Storing names to string array
             items[i] = data[i].wHName
-            warehouseSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-
-                override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
-                    Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
-                }
-                override fun onNothingSelected(p0: AdapterView<*>?) {}
-            }
         }
         val adapter: ArrayAdapter<String?> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         //setting adapter to spinner
         warehouseSpinner.adapter = adapter
+        warehouseSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+
+            override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
+                data[position].wHCode?.let {
+                    LocalPreferences.put(this@BusinessLocationActivity, whNo, it)
+                }
+                Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
     }
 
 
@@ -306,18 +312,21 @@ class BusinessLocationActivity : AppCompatActivity() {
         for (i in data.indices) {
             //Storing names to string array
             items[i] = data[i].rackName
-            rackSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-
-                override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
-                    Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
-                }
-                override fun onNothingSelected(p0: AdapterView<*>?) {}
-            }
         }
         val adapter: ArrayAdapter<String?> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         //setting adapter to spinner
         rackSpinner.adapter = adapter
+
+        rackSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
+                data[position].rackNo?.let {
+                    LocalPreferences.put(this@BusinessLocationActivity, rackNo, it)
+                }
+                Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
     }
 
 
@@ -330,6 +339,10 @@ class BusinessLocationActivity : AppCompatActivity() {
         for (i in data.indices) {
             //Storing names to string array
             items[i] = data[i].shelfName
+        val adapter: ArrayAdapter<String?> =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
+        //setting adapter to spinner
+        shelfResponse.adapter = adapter
             shelfResponse.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 
                 override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
@@ -338,10 +351,6 @@ class BusinessLocationActivity : AppCompatActivity() {
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
             }
         }
-        val adapter: ArrayAdapter<String?> =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
-        //setting adapter to spinner
-        shelfResponse.adapter = adapter
     }
 
 }
