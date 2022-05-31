@@ -42,6 +42,16 @@ class WarehouseDetailsActivity : AppCompatActivity() {
         setTransparentStatusBarColor(R.color.transparent)
         dialog = CustomProgressDialog(this)
 
+        binding.userNameTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.userName
+        )
+        binding.userDesignTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.userDesignation
+        )
+        binding.loginTimeTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.loginTime
+        )
+
         when {
             intent.extras?.getBoolean(racks) == true ->
             {

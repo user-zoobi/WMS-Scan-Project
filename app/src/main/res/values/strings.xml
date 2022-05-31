@@ -51,32 +51,32 @@
         <item>Select business location</item>
     </string-array>
 
-<!--    <string-array name="warehouse">-->
-<!--        <item>Select warehouse</item>-->
-<!--        <item>warehouse I</item>-->
-<!--        <item>warehouse II</item>-->
-<!--        <item>warehouse III</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="warehouse">-->
+    <!--        <item>Select warehouse</item>-->
+    <!--        <item>warehouse I</item>-->
+    <!--        <item>warehouse II</item>-->
+    <!--        <item>warehouse III</item>-->
+    <!--    </string-array>-->
 
-<!--    <string-array name="rackSpinner">-->
-<!--        <item>Select racks</item>-->
-<!--        <item>rack I ( R1 )</item>-->
-<!--        <item>rack II ( R2 )</item>-->
-<!--        <item>rack III ( R2 )</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="rackSpinner">-->
+    <!--        <item>Select racks</item>-->
+    <!--        <item>rack I ( R1 )</item>-->
+    <!--        <item>rack II ( R2 )</item>-->
+    <!--        <item>rack III ( R2 )</item>-->
+    <!--    </string-array>-->
 
-<!--    <string-array name="shelfSpinner">-->
-<!--        <item>Select shelf</item>-->
-<!--        <item>shelf I</item>-->
-<!--        <item>shelf II</item>-->
-<!--        <item>shelf III</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="shelfSpinner">-->
+    <!--        <item>Select shelf</item>-->
+    <!--        <item>shelf I</item>-->
+    <!--        <item>shelf II</item>-->
+    <!--        <item>shelf III</item>-->
+    <!--    </string-array>-->
 
-<!--    <string-array name="palletSpinner">-->
-<!--        <item>Select pallet</item>-->
-<!--        <item>pallet I</item>-->
-<!--        <item>pallet II</item>-->
-<!--        <item>pallet III</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="palletSpinner">-->
+    <!--        <item>Select pallet</item>-->
+    <!--        <item>pallet I</item>-->
+    <!--        <item>pallet II</item>-->
+    <!--        <item>pallet III</item>-->
+    <!--    </string-array>-->
 
 </resources>

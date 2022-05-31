@@ -80,6 +80,7 @@ class LoginActivity : AppCompatActivity() {
                                     LocalPreferences.put(this,isLogin,true)
                                     LocalPreferences.put(this,userDesignation, it.data[0].desigName.toString())
                                     LocalPreferences.put(this,userName, it.data[0].userName.toString())
+                                    LocalPreferences.put(this, loginTime, it.data[0].loginDT.toString())
                                 } else { }
                             } else {
                                 it.data?.get(0)?.error?.let { it1 -> toast(it1) }

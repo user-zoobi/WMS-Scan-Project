@@ -7,39 +7,66 @@
     android:layout_height="match_parent"
     android:background="@color/royal_blue">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/royal_blue"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:menu="@menu/drawer_menu" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/userNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_50sdp"
         android:fontFamily="@font/amiko"
-        android:text="Muhammad Zohaib Hassan"
+        android:text="User name"
         android:textColor="@color/white"
-        android:textSize="@dimen/_20ssp" />
+        android:textSize="@dimen/_15ssp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/userDesignTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/userNameTV"
+        android:layout_below="@id/userNameTV"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_2sdp"
         android:fontFamily="@font/amiko"
-        android:text="IT Department"
+        android:text="Dept name"
         android:textColor="@color/white"
-        android:textSize="@dimen/_18ssp" />
+        android:textSize="@dimen/_10ssp" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/loginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
         android:layout_alignParentEnd="true"
-        />
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:fontFamily="@font/amiko"
+        android:text="Login time"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15ssp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/loginTimeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:fontFamily="@font/amiko"
+        android:layout_below="@+id/loginText"
+        android:text="Time value"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/userDesignTV"
+        android:layout_below="@id/loginTimeTV"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@drawable/top_rounded_white_bg">
 
@@ -57,10 +84,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/amiko"
                 android:text="Business Locations"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20ssp"
-                android:textStyle="bold"
                 android:visibility="visible" />
 
             <com.google.android.material.card.MaterialCardView

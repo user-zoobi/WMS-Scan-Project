@@ -24,20 +24,10 @@ import com.example.scanmate.extensions.*
 import com.example.scanmate.util.Constants.WMSStructure.pallets
 import com.example.scanmate.util.Constants.WMSStructure.racks
 import com.example.scanmate.util.Constants.WMSStructure.shelf
-import com.example.scanmate.util.Constants.WMSStructure.warehouse
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LocalPreferences
-import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userDesignation
-import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userName
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.busLocNo
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc1
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc10
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc2
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc4
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc5
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc6
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc7
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc8
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 
@@ -61,6 +51,7 @@ class BusinessLocationActivity : AppCompatActivity() {
         setupUi()
         viewModel = obtainViewModel(MainViewModel::class.java)
         initObserver()
+        Log.i("getBusLocNo", LocalPreferences.getInt(this, busLocNo).toString())
     }
 
     private fun initObserver(){
@@ -91,8 +82,7 @@ class BusinessLocationActivity : AppCompatActivity() {
          *  get warehouse
          */
         viewModel.getWarehouse(
-            WH_Name = "",
-            LocationNo = "1"
+            "",LocalPreferences.getInt(this, busLocNo).toString()
         )
         viewModel.getWarehouse.observe(this,Observer{
             when(it.status){
@@ -101,7 +91,7 @@ class BusinessLocationActivity : AppCompatActivity() {
                 }
                 Status.SUCCESS ->{
                     dialog.dismiss()
-                    it.data?.get(0)?.wHCode?.let { it1 -> Log.i("warehouseResponse", it1) }
+                    it.data?.get(0)?.wHName?.let { it1 -> Log.i("warehouseResponse", it1) }
                     showWarehouseSpinner(it.data!!)
                 }
                 Status.ERROR ->{
@@ -159,20 +149,32 @@ class BusinessLocationActivity : AppCompatActivity() {
     }
 
     private fun setupUi(){
+
+        binding.userNameTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.userName
+        )
+        binding.userDesignTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.userDesignation
+        )
+        binding.loginTimeTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.loginTime
+        )
+
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
-        binding.userNameTV.text = LocalPreferences.getString(this, userName)
-        binding.userDesignTV.text = LocalPreferences.getString(this, userDesignation)
+
+
 
         //visibility intent values
         when {
             intent.extras?.getBoolean("warehouseKey") == true ->
             {
                 binding.tvHeader.text = "Warehouse"
-                binding.warehouseSpinnerCont.visible()
+                binding.warehouseSpinnerCont.gone()
                 binding.palletAddBTN.gone()
                 binding.rackAddBTN.gone()
                 binding.shelfAddBTN.gone()
+                binding.warehouseRV.visible()
                 screen = "W"
             }
             intent.extras?.getBoolean("rackKey") == true ->
@@ -229,16 +231,17 @@ class BusinessLocationActivity : AppCompatActivity() {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, long: Long) {
                 Log.i("response", adapterView?.getItemAtPosition(position).toString())
             }
-
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
 
         binding.rackAddBTN.click {
             gotoActivity(WarehouseDetailsActivity::class.java, racks ,true)
         }
+
         binding.shelfAddBTN.click {
             gotoActivity(WarehouseDetailsActivity::class.java, shelf ,true)
         }
+
         binding.palletAddBTN.click {
             gotoActivity(WarehouseDetailsActivity::class.java, pallets ,true)
         }
@@ -254,18 +257,19 @@ class BusinessLocationActivity : AppCompatActivity() {
         for (i in data.indices) {
             //Storing names to string array
             items[i] = data[i].busLocationName
-            businessLocSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-
-                override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
-                    Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
-                }
-                override fun onNothingSelected(p0: AdapterView<*>?) {}
-            }
         }
         val adapter: ArrayAdapter<String?> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         //setting adapter to spinner
         businessLocSpinner.adapter = adapter
+
+        businessLocSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+
+            override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
+                Log.i("LocBus","${data[position].orgBusLocNo}")
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
     }
 
 

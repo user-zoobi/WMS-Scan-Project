@@ -21,6 +21,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -42,6 +43,5 @@ class SplashActivity : AppCompatActivity() {
                 }
             }, 3000)
         }
-
     }
 }

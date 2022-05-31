@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.example.scanmate.R
 import com.example.scanmate.data.callback.Status
 import com.example.scanmate.data.response.UserLocationResponse
+import com.example.scanmate.data.routes.Routes.EndPoint.userLoc
 import com.example.scanmate.databinding.ActivityMenuBinding
 import com.example.scanmate.extensions.click
 import com.example.scanmate.extensions.gotoActivity
@@ -19,17 +20,10 @@ import com.example.scanmate.extensions.setTransparentStatusBarColor
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LocalPreferences
 import com.example.scanmate.util.LocalPreferences.AppConstants.orgBusLocNo
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.busLocNo
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userDesignation
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userName
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc1
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc10
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc2
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc4
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc5
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc6
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc7
-import com.example.scanmate.util.LocalPreferences.SpinnerKeys.businessLoc8
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 
@@ -51,8 +45,16 @@ class MenuActivity : AppCompatActivity() {
         supportActionBar?.hide()
         dialog = CustomProgressDialog(this)
         setTransparentStatusBarColor(R.color.transparent)
-        binding.uNameTV.text = LocalPreferences.getString(this, userName)
-        binding.designationTV.text = LocalPreferences.getString(this, userDesignation)
+
+        binding.userNameTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.userName
+        )
+        binding.userDesignTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.userDesignation
+        )
+        binding.loginTimeTV.text = LocalPreferences.getString(this,
+            LocalPreferences.AppLoginPreferences.loginTime
+        )
         initListeners()
     }
 
@@ -104,7 +106,6 @@ class MenuActivity : AppCompatActivity() {
         })
     }
 
-
     private fun initListeners() {
         binding.warehouseIV.setOnClickListener {
             openActivity("warehouseKey")
@@ -144,7 +145,10 @@ class MenuActivity : AppCompatActivity() {
             binding.businessSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 
                 override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
-                    Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
+                    Log.i("LocBus","${data[position].orgBusLocNo}")
+                    data[position].orgBusLocNo?.let {
+                        LocalPreferences.put(this@MenuActivity, busLocNo , it)
+                    }
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
             }
