@@ -15,6 +15,7 @@ import retrofit2.http.*
 
 interface ApiService {
 
+//
     @Multipart
     @POST(userAuth)
     suspend fun userAuthLogin(
@@ -22,11 +23,13 @@ interface ApiService {
         @Part("Pwd") Pwd: RequestBody
     ): List<LoginResponse>
 
+
     @Multipart
     @POST(userLoc)
     suspend fun userLocation(
         @Part("UserNo") UserNo:RequestBody
     ):List<UserLocationResponse>
+
 
     @Multipart
     @POST(userMenu)
