@@ -115,8 +115,8 @@ class BusinessLocationActivity : AppCompatActivity() {
          */
         viewModel.getRack(
             Utils.getSimpleTextBody(""),
-            Utils.getSimpleTextBody("3"),
-            Utils.getSimpleTextBody("1")
+            Utils.getSimpleTextBody("${LocalPreferences.getInt(this, whNo)}"),
+            Utils.getSimpleTextBody("${LocalPreferences.getInt(this, busLocNo)}")
         )
         viewModel.getRack.observe(this, Observer{
             when(it.status){
@@ -141,8 +141,8 @@ class BusinessLocationActivity : AppCompatActivity() {
          */
         viewModel.getShelf(
             Utils.getSimpleTextBody(""),
-            Utils.getSimpleTextBody("3"),
-            Utils.getSimpleTextBody("1"),
+            Utils.getSimpleTextBody("${LocalPreferences.getInt(this,rackNo)}"),
+            Utils.getSimpleTextBody("${LocalPreferences.getInt(this, userNo)}")
         )
         viewModel.getShelf.observe(this,Observer{
             when(it.status){
@@ -318,7 +318,7 @@ class BusinessLocationActivity : AppCompatActivity() {
 
             override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
                 data[position].wHCode?.let {
-                    LocalPreferences.put(this@BusinessLocationActivity, whNo, it)
+                    LocalPreferences.put(this@BusinessLocationActivity, whNo, data[position].wHNo!!)
                 }
                 Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
             }

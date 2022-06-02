@@ -6,11 +6,6 @@ import android.view.LayoutInflater
 import com.example.scanmate.R
 import com.example.scanmate.databinding.LoadingLayoutBinding
 
-
-/**
- * Created by Muhammad Dilawar Khan Azeemi on 12/14/2021
- * Email: ingenious.dilawar@gmail.com
- */
 class CustomProgressDialog(context: Context) : Dialog(context, R.style.customDialog) {
     init {
         val binding: LoadingLayoutBinding =

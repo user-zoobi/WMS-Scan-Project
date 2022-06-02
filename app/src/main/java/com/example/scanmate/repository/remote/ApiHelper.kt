@@ -1,4 +1,4 @@
-package com.example.scanmate.repository
+package com.example.scanmate.repository.remote
 
 import com.example.scanmate.data.api.RetrofitClient
 import com.example.scanmate.data.response.*

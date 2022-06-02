@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.scanmate.data.callback.ApiResponseCallback
 import com.example.scanmate.data.response.*
-import com.example.scanmate.repository.GeneralRepository
+import com.example.scanmate.repository.remote.GeneralRepository
 import com.example.scanmate.util.Constants.LogMessages.responseFound
 import com.example.scanmate.util.Constants.Logs.vmError
 import com.example.scanmate.util.Constants.Logs.vmSuccess
