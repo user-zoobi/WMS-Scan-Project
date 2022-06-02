@@ -119,9 +119,7 @@ class CreateCartonActivity : AppCompatActivity() {
     }
 
     private fun initObserver(){
-        viewModel.addUpdateWarehouse.observe(this, Observer {
 
-        })
 
     }
 }

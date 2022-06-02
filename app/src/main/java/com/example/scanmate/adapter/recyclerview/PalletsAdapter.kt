@@ -21,24 +21,7 @@ class PalletsAdapter : RecyclerView.Adapter<PalletsAdapter.ViewHolder>() {
     //
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder){
-            when(position){
-                0->{
-                    binding.palletTV.text = "Pallet I"
-                }
-                1->{
-                    binding.palletTV.text = "Pallet  II"
-                }
-                2->{
-                    binding.palletTV.text = "Pallet  III"
-                }
-                3->{
-                    binding.palletTV.text = "Pallet  IV"
-                }
-                4->{
-                    binding.palletTV.text = "Pallet  V"
-                }
 
-            }
             binding.showQRIV.setOnClickListener {
                 palletItemClick?.invoke(position)
             }

@@ -5,9 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanmate.R
+import com.example.scanmate.data.response.GetRackResponse
+import com.example.scanmate.data.response.GetShelfResponse
 import com.example.scanmate.databinding.ShelfListViewBinding
 
-class ShelfAdapter  : RecyclerView.Adapter<ShelfAdapter.ViewHolder>() {
+class ShelfAdapter(private val list:ArrayList<GetShelfResponse>)
+    : RecyclerView.Adapter<ShelfAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ShelfListViewBinding.bind(view)
@@ -20,35 +23,14 @@ class ShelfAdapter  : RecyclerView.Adapter<ShelfAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder){
-            when(position){
-                0->{
-                    binding.shelfTV.text = "Shelf I"
-                }
-                1->{
-                    binding.shelfTV.text = "Shelf  II"
-                }
-                2->{
-                    binding.shelfTV.text = "Shelf  III"
-                }
-                3->{
-                    binding.shelfTV.text = "Shelf  IV"
-                }
-                4->{
-                    binding.shelfTV.text = "Shelf  V"
-                }
-
-            }
-            binding.editIV.setOnClickListener {
-                itemclick?.invoke(position)
-            }
 
         }
     }
 
     override fun getItemCount(): Int = 8
 
-    var itemclick: ((Int) -> Unit)? = null
-    fun onClick(listener: ((Int) -> Unit)) {
-        itemclick = listener
+    fun addItems(listItems:ArrayList<GetShelfResponse>){
+        list.addAll(listItems)
+        notifyDataSetChanged()
     }
 }

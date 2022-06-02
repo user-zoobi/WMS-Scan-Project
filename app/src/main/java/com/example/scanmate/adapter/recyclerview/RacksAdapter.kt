@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanmate.R
+import com.example.scanmate.data.response.GetRackResponse
 import com.example.scanmate.databinding.RacksListViewBinding
 
-class RacksAdapter  : RecyclerView.Adapter<RacksAdapter.ViewHolder>() {
+class RacksAdapter(val list:ArrayList<GetRackResponse>)  : RecyclerView.Adapter<RacksAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = RacksListViewBinding.bind(view)
@@ -20,36 +21,15 @@ class RacksAdapter  : RecyclerView.Adapter<RacksAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder){
-            when(position){
-                0->{
-                    binding.rackTV.text = "Rack I"
-                }
-                1->{
-                    binding.rackTV.text = "Rack II"
-                }
-                2->{
-                    binding.rackTV.text = "Rack III"
-                }
-                3->{
-                    binding.rackTV.text = "Rack IV"
-                }
-                4->{
-                    binding.rackTV.text = "Rack V"
-                }
-
-            }
-            binding.editIV.setOnClickListener {
-                itemclick?.invoke(position)
-            }
 
         }
     }
 
-    override fun getItemCount(): Int = 8
+    override fun getItemCount(): Int = list.size
 
-    var itemclick: ((Int) -> Unit)? = null
-    fun onClick(listener: ((Int) -> Unit)) {
-        itemclick = listener
+    fun addItems(listItems:ArrayList<GetRackResponse>){
+        list.addAll(listItems)
+        notifyDataSetChanged()
     }
 
 }

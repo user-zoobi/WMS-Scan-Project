@@ -1,6 +1,8 @@
 package com.example.scanmate.ui.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +13,6 @@ import androidx.lifecycle.Observer
 import com.example.scanmate.R
 import com.example.scanmate.data.callback.Status
 import com.example.scanmate.data.response.UserLocationResponse
-import com.example.scanmate.data.routes.Routes.EndPoint.userLoc
 import com.example.scanmate.databinding.ActivityMenuBinding
 import com.example.scanmate.extensions.click
 import com.example.scanmate.extensions.gotoActivity
@@ -20,9 +21,8 @@ import com.example.scanmate.extensions.setTransparentStatusBarColor
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LocalPreferences
 import com.example.scanmate.util.LocalPreferences.AppConstants.orgBusLocNo
+import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.PREF
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.busLocNo
-import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userDesignation
-import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userName
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
 import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
@@ -46,6 +46,10 @@ class MenuActivity : AppCompatActivity() {
         dialog = CustomProgressDialog(this)
         setTransparentStatusBarColor(R.color.transparent)
 
+        binding.toolbar.menu.findItem(R.id.logout).setOnMenuItemClickListener {
+            clearPreferences(this)
+            true
+        }
         binding.userNameTV.text = LocalPreferences.getString(this,
             LocalPreferences.AppLoginPreferences.userName
         )
@@ -55,12 +59,11 @@ class MenuActivity : AppCompatActivity() {
         binding.loginTimeTV.text = LocalPreferences.getString(this,
             LocalPreferences.AppLoginPreferences.loginTime
         )
+
         initListeners()
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        dialog.dismiss()
         finish()
     }
 
@@ -122,8 +125,8 @@ class MenuActivity : AppCompatActivity() {
         binding.placeCartonIV.setOnClickListener {
             gotoActivity(CreateCartonActivity::class.java)
         }
-        binding.busSpinnerCont.click {
-
+        binding.scanCartonIV.click {
+            gotoActivity(ScannerActivity::class.java, "scannerKey",true)
         }
     }
 
@@ -158,5 +161,12 @@ class MenuActivity : AppCompatActivity() {
             ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         //setting adapter to spinner
         binding.businessSpinner.adapter = adapter
+    }
+
+    private fun clearPreferences(context: Context){
+        val settings: SharedPreferences =
+            context.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+        settings.edit().clear().apply()
+        finish()
     }
 }

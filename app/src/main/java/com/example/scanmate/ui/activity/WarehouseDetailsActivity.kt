@@ -1,5 +1,7 @@
 package com.example.scanmate.ui.activity
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +21,7 @@ import com.example.scanmate.util.Constants.WMSStructure.shelf
 import com.example.scanmate.util.CustomProgressDialog
 import com.example.scanmate.util.LocalPreferences
 import com.example.scanmate.util.LocalPreferences.AppLoginPreferences.userNo
+import com.example.scanmate.util.Utils
 import com.example.scanmate.viewModel.MainViewModel
 
 class WarehouseDetailsActivity : AppCompatActivity() {
@@ -41,6 +44,11 @@ class WarehouseDetailsActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setTransparentStatusBarColor(R.color.transparent)
         dialog = CustomProgressDialog(this)
+
+        binding.toolbar.menu.findItem(R.id.logout).setOnMenuItemClickListener {
+            clearPreferences(this)
+            true
+        }
 
         binding.userNameTV.text = LocalPreferences.getString(this,
             LocalPreferences.AppLoginPreferences.userName
@@ -101,6 +109,72 @@ class WarehouseDetailsActivity : AppCompatActivity() {
 
             }
         })
+
+        binding.saveBtn.click {
+
+            viewModel.addRack(
+                Utils.getSimpleTextBody("0"),
+                Utils.getSimpleTextBody("Test"),
+                Utils.getSimpleTextBody("R-1"),
+                Utils.getSimpleTextBody("3"),
+                Utils.getSimpleTextBody("20"),
+                Utils.getSimpleTextBody("1"),
+                Utils.getSimpleTextBody("2"),
+                Utils.getSimpleTextBody("TEST")
+            )
+            viewModel.addRack.observe(this, Observer {
+                when(it.status){
+
+                    Status.LOADING ->{
+                        dialog.show()
+                    }
+                    Status.SUCCESS ->{
+                        dialog.dismiss()
+                        Log.i("addRack","${it.data?.error}")
+                        toast(it.data?.error.toString())
+                    }
+                    Status.ERROR ->{
+                        dialog.dismiss()
+                    }
+
+                }
+            })
+
+            viewModel.addShelf(
+                Utils.getSimpleTextBody("0"),
+                Utils.getSimpleTextBody("3"),
+                Utils.getSimpleTextBody("Test"),
+                Utils.getSimpleTextBody("S-1"),
+                Utils.getSimpleTextBody("10"),
+                Utils.getSimpleTextBody("1"),
+                Utils.getSimpleTextBody("2"),
+                Utils.getSimpleTextBody("TEST")
+            )
+            viewModel.addShelf.observe(this, Observer {
+                when(it.status){
+                    Status.LOADING ->{
+                        dialog.show()
+                    }
+                    Status.SUCCESS ->{
+                        dialog.dismiss()
+                        Log.i("addShelf","${it.data?.error}")
+                        toast(it.data?.error.toString())
+                    }
+                    Status.ERROR ->{
+                        dialog.dismiss()
+                    }
+                }
+            })
+
+        }
     }
+
+    private fun clearPreferences(context: Context){
+        val settings: SharedPreferences =
+            context.getSharedPreferences(LocalPreferences.AppLoginPreferences.PREF, Context.MODE_PRIVATE)
+        settings.edit().clear().apply()
+        onBackPressed()
+    }
+
 
 }
