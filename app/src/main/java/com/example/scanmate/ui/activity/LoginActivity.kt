@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel = obtainViewModel(MainViewModel::class.java)
         setupUi()
         initObservers()
+//        showBiometricPrompt()
 
     }
 
@@ -101,6 +102,7 @@ class LoginActivity : AppCompatActivity() {
         binding.loginBtn.click {
             validations()
         }
+
 
     }
 

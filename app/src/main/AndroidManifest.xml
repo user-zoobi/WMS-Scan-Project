@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScanMate">
         <activity
+            android:name=".ui.activity.NoNetworkActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.UserDetailActivity"
             android:exported="false" />
         <activity

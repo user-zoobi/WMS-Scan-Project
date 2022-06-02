@@ -1,5 +1,8 @@
 package com.example.scanmate.ui.activity
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -31,17 +34,34 @@ class SplashActivity : AppCompatActivity() {
     private fun handler(){
 
         CoroutineScope(Dispatchers.Main).launch {
+
             Handler().postDelayed({
-
                 if (LocalPreferences.getBoolean(this@SplashActivity, isLogin)){
-                    gotoActivity(MenuActivity::class.java)
-                    finish()
-
+                    if (isNetworkConnected(this@SplashActivity)){
+                        gotoActivity(MenuActivity::class.java)
+                        finish()
+                    }else{
+                        gotoActivity(NoNetworkActivity::class.java)
+                        finish()
+                    }
                 }else{
-                    gotoActivity(ScannerActivity::class.java)
-                    finish()
+                    if (isNetworkConnected(this@SplashActivity)){
+                        gotoActivity(ScannerActivity::class.java)
+                        finish()
+                    }else{
+                        gotoActivity(NoNetworkActivity::class.java)
+                        finish()
+                    }
                 }
             }, 3000)
         }
     }
+
+    @SuppressLint("ServiceCast")
+    private fun isNetworkConnected(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo != null && cm.activeNetworkInfo!!.isConnectedOrConnecting
+    }
+
+
 }
