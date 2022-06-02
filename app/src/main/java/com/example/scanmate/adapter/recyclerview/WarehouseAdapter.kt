@@ -32,9 +32,9 @@ class WarehouseAdapter(
 
     override fun getItemCount(): Int = list.size
 
-    fun addItems(listItems:ArrayList<GetWarehouseResponse>){
+    /*fun addItems(listItems:ArrayList<GetWarehouseResponse>){
         list.addAll(listItems)
         notifyDataSetChanged()
-    }
+    }*/
 
 }

@@ -47,6 +47,12 @@ class BusinessLocationActivity : AppCompatActivity() {
     private lateinit var rackList: ArrayList<GetRackResponse>
     private lateinit var shelfList: ArrayList<GetShelfResponse>
 
+    private var selectedBusLocNo = ""
+    private var selectedWareHouseNo = ""
+    private var selectedRackNo = ""
+    private var selectedShelveNo = ""
+    private var selectedPalleteNo = ""
+
 
     private var screen = ""
 
@@ -89,9 +95,7 @@ class BusinessLocationActivity : AppCompatActivity() {
         /**
          *  get warehouse
          */
-        viewModel.getWarehouse(
-            "",LocalPreferences.getInt(this, busLocNo).toString()
-        )
+
         viewModel.getWarehouse.observe(this,Observer{
             when(it.status){
                 Status.LOADING->{
@@ -102,7 +106,9 @@ class BusinessLocationActivity : AppCompatActivity() {
                     it.data?.get(0)?.wHName?.let { it1 -> Log.i("warehouseResponse", it1) }
                     showWarehouseSpinner(it.data!!)
                     list = it.data as ArrayList<GetWarehouseResponse>
-                    warehouseAdapter.addItems(list)
+                    binding.warehouseRV.layoutManager = LinearLayoutManager(this@BusinessLocationActivity)
+                    binding.warehouseRV.adapter = WarehouseAdapter(list)
+                    //warehouseAdapter.addItems(list)
                 }
                 Status.ERROR ->{
                     dialog.dismiss()
@@ -115,8 +121,8 @@ class BusinessLocationActivity : AppCompatActivity() {
          */
         viewModel.getRack(
             Utils.getSimpleTextBody(""),
-            Utils.getSimpleTextBody("${LocalPreferences.getInt(this, whNo)}"),
-            Utils.getSimpleTextBody("${LocalPreferences.getInt(this, busLocNo)}")
+            Utils.getSimpleTextBody("3"),
+            Utils.getSimpleTextBody("1")
         )
         viewModel.getRack.observe(this, Observer{
             when(it.status){
@@ -125,7 +131,15 @@ class BusinessLocationActivity : AppCompatActivity() {
                 }
                 Status.SUCCESS ->{
                     dialog.dismiss()
-                    Log.i("getRack",it.data?.get(0)?.rackNo.toString())
+                   // Log.i("getRack",it.data?.get(0)?.rackNo.toString())
+                    try
+                    {
+
+                    }
+                    catch (e: Exception)
+                    {
+
+                    }
                     showRackSpinner(it.data!!)
                     rackList = it.data as ArrayList<GetRackResponse>
                     racksAdapter.addItems(rackList)
@@ -141,8 +155,8 @@ class BusinessLocationActivity : AppCompatActivity() {
          */
         viewModel.getShelf(
             Utils.getSimpleTextBody(""),
-            Utils.getSimpleTextBody("${LocalPreferences.getInt(this,rackNo)}"),
-            Utils.getSimpleTextBody("${LocalPreferences.getInt(this, userNo)}")
+            Utils.getSimpleTextBody("3"),
+            Utils.getSimpleTextBody("1")
         )
         viewModel.getShelf.observe(this,Observer{
             when(it.status){
@@ -227,7 +241,7 @@ class BusinessLocationActivity : AppCompatActivity() {
         }
 
         initListeners()
-        setAdapter()
+        //setAdapter()
     }
 
     private fun setAdapter(){
@@ -293,7 +307,9 @@ class BusinessLocationActivity : AppCompatActivity() {
         businessLocSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 
             override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
-                Log.i("LocBus","${data[position].orgBusLocNo}")
+                Log.i("LocBus","business Location no ${data[position].orgBusLocNo}")
+                selectedBusLocNo = data[position].orgBusLocNo.toString()
+                viewModel.getWarehouse("", selectedBusLocNo)
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
@@ -320,7 +336,7 @@ class BusinessLocationActivity : AppCompatActivity() {
                 data[position].wHCode?.let {
                     LocalPreferences.put(this@BusinessLocationActivity, whNo, data[position].wHNo!!)
                 }
-                Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
+                Log.i("LocBus","This is warehouse pos ${adapter?.getItemAtPosition(position)}")
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
@@ -347,7 +363,7 @@ class BusinessLocationActivity : AppCompatActivity() {
                 data[position].rackNo?.let {
                     LocalPreferences.put(this@BusinessLocationActivity, rackNo, it)
                 }
-                Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
+                Log.i("LocBus","This is rack pos ${adapter?.getItemAtPosition(position)}")
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
@@ -370,7 +386,7 @@ class BusinessLocationActivity : AppCompatActivity() {
             shelfResponse.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 
                 override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, long: Long) {
-                    Log.i("LocBus","${adapter?.getItemAtPosition(position)}")
+                    Log.i("LocBus","This is shelf pos ${adapter?.getItemAtPosition(position)}")
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
             }

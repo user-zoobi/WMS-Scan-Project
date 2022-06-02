@@ -130,7 +130,6 @@ class MainViewModel : ViewModel() {
         RackName: RequestBody, WH_No: RequestBody, LocationNo: RequestBody
     ){
         _getRack.value = ApiResponseCallback.loading()
-
         viewModelScope.launch {
             try {
                 _getRack.value = ApiResponseCallback.success(repository.getRack(
