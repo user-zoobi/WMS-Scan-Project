@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/featureCont"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_150sdp"
+    android:layout_height="@dimen/_100sdp"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:weightSum="3"
+    android:layout_marginStart="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    android:background="@drawable/white_rounded_bg">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/featuresTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:src="@drawable/placeholder"
+        android:scaleType="centerCrop"
+        android:text="Hello"
+        android:textColor="@color/purple"
+        android:textSize="@dimen/_20sdp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/featureDetailTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Hello"
+        android:textColor="@color/denim_blue"
+        android:textSize="@dimen/_15sdp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
